@@ -1,14 +1,18 @@
 // backend/routes/api/users.js
-const express = require('express');
+const express = require('express')
+const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { User } = require('../../db/models');
+
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const { User } = require('../../db/models');
-
-const router = express.Router();
+router.use((req, res, next) => {
+  console.log('User route hit!');
+  next();
+});
 
 // middleware to validate sign up - checking email, username, password
 const validateSignup = [
@@ -32,25 +36,31 @@ const validateSignup = [
   ];
 
 // Sign up
-router.post('/', validateSignup,
-    async (req, res) => {
-      const { email, password, username } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, hashedPassword });
-  
-      const safeUser = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      };
-  
-      await setTokenCookie(res, safeUser);
-  
-      return res.json({
-        user: safeUser
-      });
-    }
-  );
+router.post('/', validateSignup, async (req, res) => {
+  try {
+    const { firstName, lastName, email, password, username } = req.body;
+    const hashedPassword = bcrypt.hashSync(password);
+
+    const user = await User.create({ firstName, lastName, email, username, hashedPassword });
+
+    const safeUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    };
+
+    await setTokenCookie(res, safeUser);
+
+    return res.json({
+      user: safeUser
+    });
+  } catch (err) {
+
+    return res.status(400).json(err)
+  }
+});
 
 
 module.exports = router;
