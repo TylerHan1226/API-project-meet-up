@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     venueId: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    description: DataTypes.TEXT,
+    description: DataTypes.STRING,
     type: DataTypes.STRING,
     capacity: DataTypes.INTEGER,
     price: DataTypes.FLOAT,
