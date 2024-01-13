@@ -31,7 +31,7 @@ module.exports = {
       state: {
         type: Sequelize.STRING
       },
-      lag: {
+      lat: {
         type: Sequelize.DECIMAL
       },
       lng: {
