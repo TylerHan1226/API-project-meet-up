@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { Op, or } = require('sequelize');
-// const bcrypt = require('bcryptjs');
-// const { check, validationResult } = require('express-validator');
 
 //Models
 const { User, Group, GroupImage, Membership, Venue } = require('../../db/models');
@@ -10,8 +8,6 @@ const { User, Group, GroupImage, Membership, Venue } = require('../../db/models'
 //Validation middleware
 const { requireAuth } = require('../../utils/auth');
 const groupInputsValidation = require('../../input-validation/groupInputsValidation');
-// const { handleValidationErrors } = require('../../utils/validation');
-
 
 
 //confirming route
@@ -19,7 +15,6 @@ router.use((req, res, next) => {
     console.log('Group route hit!');
     next();
 });
-
 
 
 //Get all Groups
@@ -66,34 +61,49 @@ router.get('/current', requireAuth, async (req, res) => {
     const groups = await Group.findAll({
         include: [
             { model: GroupImage, attributes: ['url'], where: { preview: true } },
-            { model: Membership, attributes: ['id', 'userId', 'groupId'] }          
+            { model: Membership, attributes: ['id', 'userId', 'groupId'] }
         ]
     })
-    const groupAsOrganizer = await Group.findOne({
-        where: {organizerId: user.id}
+
+    //building response
+    const reGroups = []
+    groups.forEach(ele => {
+        //checking memberships
+        // return res.status(200).json(ele.organizerId)
+        if (ele.Memberships.length !== 0) {
+            let UserIdArr = ele.Memberships.map(ele => ele.userId)
+            if (UserIdArr.includes(user.id)) {
+                reGroups.push(ele.toJSON())
+            }
+            //checking organizerId
+        } else if (ele.organizerId == user.id) {
+            //checking duplicated groups
+            if (reGroups.length > 1) {
+                const reGroupsIdArr = reGroups.map(ele => ele.id)
+                if (!reGroupsIdArr.includes(ele.id)) {
+                    reGroups.push(ele.toJSON())
+                }
+            } else {
+                reGroups.push(ele.toJSON())
+            }
+        }
     })
 
-    const reGroups = []
-    groups.push(groupAsOrganizer)
-    for (let eachGroup of groups) {
-        reGroups.push(eachGroup.toJSON())
-    }
-    for (let eachRGroup of reGroups) {
-        if (eachRGroup.Memberships) {
-            eachRGroup.numMembers = eachRGroup.Memberships.length
-            delete eachRGroup.Memberships
+    reGroups.forEach(ele => {
+        if (ele.Memberships.length !== 0) {
+            ele.numMembers = ele.Memberships.length
         } else {
-            eachRGroup.numMembers = 1
+            ele.numMembers = 1
         }
-        if (eachRGroup.GroupImages) {
-            eachRGroup.previewImage = eachRGroup.GroupImages[0].url
-            delete eachRGroup.GroupImages
+        if (ele.GroupImages) {
+            ele.previewImage = ele.GroupImages[0].url
         } else {
-            eachRGroup.previewImage = null
+            ele.previewImage = null
         }
-    }
-    
-    // return res.status(200).json(groups)
+        delete ele.Memberships
+        delete ele.GroupImages
+    })
+
     return res.status(200).json({ Groups: reGroups })
 })
 
@@ -111,19 +121,18 @@ router.get('/:groupId', async (req, res) => {
             { model: Venue }
         ]
     })
-    //Error Handler
+    //Group couldn't be found
     if (!group) {
         return res.status(404).json({
             "message": "Group couldn't be found"
         })
     }
-
     const resultGroups = group.toJSON()
-    resultGroups.numMembers = resultGroups.Memberships.length
+    resultGroups.numMembers = 1
+    if (resultGroups.Memberships.length !== 0) {
+        resultGroups.numMembers = resultGroups.Memberships.length
+    }
     delete resultGroups.Memberships
-    // resultGroups.Organizer = resultGroups.User
-    // delete resultGroups.User
-
     return res.status(200).json(resultGroups)
 })
 
@@ -144,9 +153,93 @@ router.post('/', requireAuth, groupInputsValidation.createGroup(), async (req, r
 })
 
 
+//Add an Image to a Group based on the Group's id
+router.post('/:groupId/images', requireAuth, async (req, res) => {
+    const { groupId } = req.params
+    const { user } = req
+    const group = await Group.findByPk(groupId)
+    //Group couldn't be found
+    if (!group) {
+        return res.status(404).json({
+            "message": "Group couldn't be found"
+        })
+    }
+    //Current User must be the organizer for the group
+    if (group.organizerId !== user.id) {
+        return res.status(403).json({
+            "message": "Current User must be the organizer for the group"
+        })
+    }
+
+    const { url, preview } = req.body
+    const newGroupImg = await GroupImage.build({
+        groupId, url, preview
+    })
+    await newGroupImg.save()
+    const reNewGroupImg = {
+        id: newGroupImg.id,
+        url: newGroupImg.url,
+        preview: newGroupImg.preview
+    }
+    return res.status(200).json(reNewGroupImg)
+})
 
 
+//Edit a Group
+router.put('/:groupId', requireAuth, groupInputsValidation.createGroup(), async (req, res) => {
+    const { groupId } = req.params
+    const { user } = req
+    const group = await Group.findByPk(groupId)
+    //Group couldn't be found
+    if (!group) {
+        return res.status(404).json({
+            "message": "Group couldn't be found"
+        })
+    }
+    //Group must belong to the current user
+    if (group.organizerId !== user.id) {
+        return res.status(403).json({
+            "message": "Group must belong to the current user"
+        })
+    }
+    //Edit
+    const { name, about, type, private, city, state } = req.body
+    group.name = name
+    group.about = about
+    group.type = type
+    group.private = private
+    group.city = city
+    group.state = state
+    await group.save()
 
+    return res.status(200).json(group)
+})
+
+
+//Delete a Group
+router.delete('/:groupId', requireAuth, async (req, res) => {
+    const { groupId } = req.params
+    const { user } = req
+    const group = await Group.findByPk(groupId)
+    //Group couldn't be found
+    if (!group) {
+        return res.status(404).json({
+            "message": "Group couldn't be found"
+        })
+    }
+    //Group must belong to the current user
+    if (group.organizerId !== user.id) {
+        return res.status(403).json({
+            "message": "Group must belong to the current user"
+        })
+    }
+    //Delete
+    await group.destroy()
+
+    return res.status(200).json({
+        "message": "Successfully deleted"
+    })
+})
 
 
 

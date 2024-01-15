@@ -15,7 +15,7 @@ module.exports = {
     {
       organizerId: 1,
       name: 'EDM Squad',
-      about: "Welcome to EDM Squad",
+      about: "Immerse in LA's EDM scene at EDM Squad! Join us for unforgettable nights of music, dance, and camaraderie. Whether a seasoned raver or newbie, amplify the rhythm together!",
       type: 'In person',
       private: false,
       city: 'Los Angeles',
@@ -24,7 +24,7 @@ module.exports = {
     {
       organizerId: 2,
       name: 'The Best 5',
-      about: "Welcome to The Best 5",
+      about: "Welcome to 'The Best 5' - Dive into epic League of Legends battles on Summoner's Rift. Join our community for unforgettable plays and the pursuit of victory!",
       type: 'Online',
       private: false,
       city: 'Cincinnati',
@@ -33,7 +33,7 @@ module.exports = {
     {
       organizerId: 3,
       name: "NYC Ballers' Expedition",
-      about: "Join NYC Ballers' Expedition",
+      about: "NYC Ballers' Expedition: Discover prime basketball spots, add excitement to weekend hoops adventures. Join us for camaraderie and urban court exploration!",
       type: 'In person',
       private: false,
       city: 'New York City',
