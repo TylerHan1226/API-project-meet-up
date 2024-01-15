@@ -7,7 +7,7 @@ const { User, Group, GroupImage, Membership, Venue } = require('../../db/models'
 
 //Validation middleware
 const { requireAuth } = require('../../utils/auth');
-const groupInputsValidation = require('../../input-validation/groupInputsValidation');
+const groupValidation = require('../../input-validation/groupValidation');
 
 
 //confirming route
@@ -56,7 +56,6 @@ router.get('/', async (req, res) => {
 
 //Get all Groups joined or organized by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-
     const { user } = req
     const groups = await Group.findAll({
         include: [
@@ -110,7 +109,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
 // Get details of a Group from an id
 router.get('/:groupId', async (req, res) => {
-
     const { groupId } = req.params
     const group = await Group.findOne({
         where: { id: groupId },
@@ -138,8 +136,7 @@ router.get('/:groupId', async (req, res) => {
 
 
 // Create a Group
-router.post('/', requireAuth, groupInputsValidation.createGroup(), async (req, res) => {
-
+router.post('/', requireAuth, groupValidation.createGroup(), async (req, res) => {
     const { user } = req
     const { name, about, type, private, city, state } = req.body
     const organizerId = user.id
@@ -170,7 +167,7 @@ router.post('/:groupId/images', requireAuth, async (req, res) => {
             "message": "Current User must be the organizer for the group"
         })
     }
-
+    //Build Image
     const { url, preview } = req.body
     const newGroupImg = await GroupImage.build({
         groupId, url, preview
@@ -186,7 +183,7 @@ router.post('/:groupId/images', requireAuth, async (req, res) => {
 
 
 //Edit a Group
-router.put('/:groupId', requireAuth, groupInputsValidation.createGroup(), async (req, res) => {
+router.put('/:groupId', requireAuth, groupValidation.createGroup(), async (req, res) => {
     const { groupId } = req.params
     const { user } = req
     const group = await Group.findByPk(groupId)

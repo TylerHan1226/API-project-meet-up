@@ -57,8 +57,11 @@ router.post('/', validateSignup, async (req, res) => {
       user: safeUser
     });
   } catch (err) {
-
-    return res.status(400).json(err)
+    const reErr = {
+      message: 'Bad Request',
+      errors: err.errors[0].message
+    }
+    return res.status(400).json(reErr)
   }
 });
 

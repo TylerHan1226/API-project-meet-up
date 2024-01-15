@@ -42,7 +42,7 @@ module.exports = {
     {
       organizerId: 4,
       name: 'Metalheads',
-      about: "Welcome to Metalheads",
+      about: "Metalheads unite! Dive into genres, form bands, and amplify the metal scene. Join us for epic jam nights and forge our legacy together.",
       type: 'In person',
       private: false,
       city: 'San Francisco',
