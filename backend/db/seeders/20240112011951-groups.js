@@ -19,7 +19,7 @@ module.exports = {
       type: 'In person',
       private: false,
       city: 'Los Angeles',
-      state: 'California'
+      state: 'CA'
     },
     {
       organizerId: 2,
@@ -28,7 +28,7 @@ module.exports = {
       type: 'Online',
       private: false,
       city: 'Cincinnati',
-      state: 'Ohio'
+      state: 'OH'
     },
     {
       organizerId: 3,
@@ -37,7 +37,7 @@ module.exports = {
       type: 'In person',
       private: false,
       city: 'New York City',
-      state: 'New York'
+      state: 'NY'
     },
     {
       organizerId: 4,
@@ -46,7 +46,7 @@ module.exports = {
       type: 'In person',
       private: false,
       city: 'San Francisco',
-      state: 'California'
+      state: 'CA'
     },
     {
       organizerId: 5,
@@ -55,7 +55,7 @@ module.exports = {
       type: 'In person',
       private: false,
       city: 'Los Angeles',
-      state: 'California'
+      state: 'CA'
     }
    ], options)
   },
