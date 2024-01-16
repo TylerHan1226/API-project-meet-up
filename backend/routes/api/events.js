@@ -255,19 +255,10 @@ router.post('/groups/:groupId/events', requireAuth, eventValidation.createEvent(
         groupId, venueId, name, type, capacity, price, description, startDate, endDate
     })
     await newEvent.save()
-    const reNewEvent = {
-        id: newEvent.id,
-        groupId: newEvent.groupId,
-        venueId: newEvent.venueId,
-        name: newEvent.name,
-        type: newEvent.type,
-        capacity: newEvent.capacity,
-        price: newEvent.price,
-        description: newEvent.description,
-        startDate: newEvent.startDate,
-        endDate: newEvent.endDate
-    }
 
+    const reNewEvent = newEvent.get({ plain: true })
+    delete reNewEvent.createdAt
+    delete reNewEvent.updatedAt
     return res.status(200).json(reNewEvent)
 })
 
@@ -279,9 +270,11 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
     const event = await Event.findByPk(eventId, {
         include: [
             { model: Attendance },
-            { model: Group, attributes: ['organizerId'], include: [
-                { model: Membership }
-            ] }
+            {
+                model: Group, attributes: ['organizerId'], include: [
+                    { model: Membership }
+                ]
+            }
         ]
     })
     if (!event) {
@@ -289,9 +282,11 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
             "message": "Event couldn't be found"
         })
     }
-    //Require proper authorization: Current User must be an attendee, host, or co-host of the event
-    const validUsers = []
+
+    //Current User must be an attendee, host, or co-host of the event
+    let validUsers = []
     validUsers.push(event.Group.organizerId)
+    //checking attendance
     if (event.Attendances.length !== 0) {
         for (let eachAtt of event.Attendances) {
             if (eachAtt.status == 'attending') {
@@ -299,6 +294,11 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
             }
         }
     }
+    //checking host / co-host
+    const validMembers = event.Group.Memberships.filter(member => ['host', 'co-host'].includes(member.status))
+    const validMembersIds = validMembers.map(ele => ele.userId) //=> [1, 2]
+    validUsers = validUsers.concat(validMembersIds)
+    //error handler
     if (!validUsers.includes(user.id)) {
         return res.status(403).json({
             "message": "Current User must be an attendee, host, or co-host of the event"
@@ -322,12 +322,85 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
 
 
 //Edit an Event specified by its id
-router.put('/events/:eventId', requireAuth, async (req, res) => {
+router.put('/events/:eventId', requireAuth, eventValidation.createEvent(), async (req, res) => {
     const { eventId } = req.params
+    const { user } = req
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: Group, attributes: ['organizerId'], include: [
+                    { model: Membership }
+                ]
+            }
+        ]
+    })
+    //Current User must be the organizer of the group or a member of the group with a status of "co-host"
+    let validUsers = []
+    validUsers.push(event.Group.organizerId)
+    //checking membership co-host
+    const validMembers = event.Group.Memberships.filter(member => ['co-host'].includes(member.status))
+    const validMembersIds = validMembers.map(ele => ele.userId)
+    validUsers = validUsers.concat(validMembersIds)
+    if (!validUsers.includes(user.id)) {
+        return res.status(403).json({
+            "message": "Current User must be the organizer of the group or a member of the group with a status of 'co-host'"
+        })
+    }
+    //build
+    const groupId = event.groupId
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
+    event.groupId = groupId
+    event.venueId = venueId
+    event.name = name
+    event.type = type
+    event.capacity = capacity
+    event.price = price
+    event.description = description
+    event.startDate = startDate
+    event.endDate = endDate
+    await event.save()
 
-
-    return res.status(200).json(eventId)
+    const reEvent = event.get({ plain: true })
+    delete reEvent.Group
+    delete reEvent.createdAt
+    delete reEvent.updatedAt
+    return res.status(200).json(reEvent)
 })
+
+
+//Delete an Event specified by its id
+router.delete('/events/:eventId', requireAuth, async (req, res) => {
+    const { eventId } = req.params
+    const { user } = req
+    const event = await Event.findByPk(eventId, {
+        include: [
+            {
+                model: Group, attributes: ['organizerId'], include: [
+                    { model: Membership }
+                ]
+            }
+        ]
+    })
+    //Current User must be the organizer of the group or a member of the group with a status of "co-host"
+    let validUsers = []
+    validUsers.push(event.Group.organizerId)
+    //checking membership co-host
+    const validMembers = event.Group.Memberships.filter(member => ['co-host'].includes(member.status))
+    const validMembersIds = validMembers.map(ele => ele.userId)
+    validUsers = validUsers.concat(validMembersIds)
+    if (!validUsers.includes(user.id)) {
+        return res.status(403).json({
+            "message": "Current User must be the organizer of the group or a member of the group with a status of 'co-host'"
+        })
+    }
+    //Delete
+    await event.destroy()
+
+    return res.status(200).json({
+        "message": "Successfully deleted"
+    })
+})
+
 
 
 
