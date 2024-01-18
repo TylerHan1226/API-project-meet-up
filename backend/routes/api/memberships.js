@@ -7,8 +7,6 @@ const { User, Group, GroupImage, Membership, Venue, Event, EventImage, Attendanc
 
 //Validation middleware
 const { requireAuth } = require('../../utils/auth')
-// const eventValidation = require('../../input-validation/eventValidation')
-
 
 //confirming route
 router.use((req, res, next) => {
