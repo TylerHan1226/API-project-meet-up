@@ -77,15 +77,33 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
     const { user } = req
     const event = await Event.findByPk(eventId, {
         include: [
-            { model: Attendance, attributes: ['userId', 'status'] }
+            { model: Attendance, attributes: ['userId', 'status'] },
+            { model: Group, attributes: ['organizerId'], include: [
+                { model: Membership, attributes: ['userId', 'status'] }
+            ] }
         ]
     })
+    
     //error handler
     if (!event) {
         return res.status(404).json({
             "message": "Event couldn't be found"
         })
     }
+    //Current User must be a member of the group
+    const validUser = []
+    event.Group.Memberships.forEach(ele => {
+        if (ele.userId == user.id && ['host', 'co-host', 'member'].includes(ele.status)) {
+            validUser.push(ele)
+        }
+    })
+    if (validUser.length === 0) {
+        return res.status(403).json({
+            "message": "Current User must be a member of the group"
+        })
+    }
+
+    //check attendance
     const userId = user.id
     event.Attendances.forEach(ele => {
         if (userId == ele.userId && ele.status == 'pending') {

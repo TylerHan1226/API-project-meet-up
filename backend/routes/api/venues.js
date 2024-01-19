@@ -124,6 +124,7 @@ router.put('/venues/:venueId', requireAuth, venueValidation.createVenue(), async
     await venue.save()
     let reVenue = venue.get({ plain: true })
     delete reVenue.Group
+    delete reVenue.updatedAt
     return res.status(200).json(reVenue)
 })
 

@@ -206,7 +206,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res) => {
             })
         }
     }
-    if (status == 'co-host' && member.status == 'member') {
+    if (status == 'co-host') {
         if (user.id == group.organizerId) {
             //edit member
             member.status = status
@@ -251,7 +251,7 @@ router.delete('/:groupId/membership/:memberId', requireAuth, async (req, res) =>
         })
     }
     //Current User must be the host of the group, or the user whose membership is being deleted
-    if (group.organizerId !== user.id && memberId !== user.id) {
+    if (group.organizerId != user.id && memberId != user.id) {
         return res.status(403).json({
             "message": "Current User must be the host of the group, or the user whose membership is being deleted"
         })

@@ -130,17 +130,18 @@ router.get('/groups/:groupId/events', async (req, res) => {
             { model: EventImage }
         ]
     })
-    if (events.length === 0) {
-        return res.status(404).json({
-            "message": "Group couldn't be found"
-        })
-    }
-
+    
     const reEvents = []
     for (let eachEvent of events) {
         if (eachEvent.Group.id == groupId) {
             reEvents.push(eachEvent.toJSON())
         }
+    }
+    //error handler
+    if (reEvents.length === 0) {
+        return res.status(404).json({
+            "message": "Group couldn't be found"
+        })
     }
 
     for (let eachREvent of reEvents) {
@@ -324,6 +325,7 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
 //Edit an Event specified by its id
 router.put('/events/:eventId', requireAuth, eventValidation.createEvent(), async (req, res) => {
     const { eventId } = req.params
+    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
     const { user } = req
     const event = await Event.findByPk(eventId, {
         include: [
@@ -334,6 +336,19 @@ router.put('/events/:eventId', requireAuth, eventValidation.createEvent(), async
             }
         ]
     })
+    //error handler
+    if (!event) {
+        return res.status(404).json({
+            "message": "Event couldn't be found"
+        })
+    }
+    const venue = await Venue.findByPk(venueId)
+    if (!venue) {
+        return res.status(404).json({
+            "message": "Venue couldn't be found"
+        })
+    }
+
     //Current User must be the organizer of the group or a member of the group with a status of "co-host"
     let validUsers = []
     validUsers.push(event.Group.organizerId)
@@ -348,7 +363,6 @@ router.put('/events/:eventId', requireAuth, eventValidation.createEvent(), async
     }
     //build
     const groupId = event.groupId
-    const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body
     event.groupId = groupId
     event.venueId = venueId
     event.name = name
@@ -381,6 +395,12 @@ router.delete('/events/:eventId', requireAuth, async (req, res) => {
             }
         ]
     })
+    //error handler
+    if (!event) {
+        res.status(404).json({
+            "message": "Event couldn't be found"
+        })
+    }
     //Current User must be the organizer of the group or a member of the group with a status of "co-host"
     let validUsers = []
     validUsers.push(event.Group.organizerId)
