@@ -70,6 +70,9 @@ router.get('/:eventId/attendees', async (req, res) => {
     }
 })
 
+
+
+//Request to Attend an Event based on the Event's id
 router.post('/:eventId/attendance', requireAuth, async (req, res) => {
     const { eventId } = req.params
         const { user } = req
@@ -80,7 +83,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
                     { model: Membership, attributes: ['userId', 'status'] }
                 ] }
             ]
-        });
+        })
         // Error handler
         if (!event) {
             return res.status(404).json({
@@ -94,7 +97,7 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
         if (validUser.length === 0) {
             return res.status(403).json({
                 "message": "Current User must be a member of the group"
-            });
+            })
         }
         // Check attendance
         const userId = user.id;
@@ -114,10 +117,10 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
             }
         })
         // Build and save new attendance
-        const status = 'pending';
+        const status = 'pending'
         const newAttendee = await Attendance.build({
             eventId, userId, status
-        });
+        })
         await newAttendee.save()
 
         const reNewAtt = {
@@ -127,70 +130,6 @@ router.post('/:eventId/attendance', requireAuth, async (req, res) => {
         return res.status(200).json(reNewAtt)
 })
 
-// //Request to Attend an Event based on the Event's id
-// router.post('/:eventId/attendance', requireAuth, async (req, res) => {
-//     const { eventId } = req.params
-//     const { user } = req
-//     const event = await Event.findByPk(eventId, {
-//         include: [
-//             { model: Attendance, attributes: ['userId', 'status'] },
-//             { model: Group, attributes: ['organizerId'], include: [
-//                 { model: Membership, attributes: ['userId', 'status'] }
-//             ] }
-//         ]
-//     })
-
-//     //error handler
-//     if (!event) {
-//         return res.status(404).json({
-//             "message": "Event couldn't be found"
-//         })
-//     }
-//     //Current User must be a member of the group
-//     const validUser = []
-//     event.Group.Memberships.forEach(ele => {
-//         if (ele.userId == user.id && ['host', 'co-host', 'member'].includes(ele.status)) {
-//             validUser.push(ele)
-//         }
-//     })
-//     if (validUser.length === 0) {
-//         return res.status(403).json({
-//             "message": "Current User must be a member of the group"
-//         })
-//     }
-
-//     //check attendance
-//     const userId = user.id
-//     event.Attendances.forEach(ele => {
-//         if (userId == ele.userId) {
-//             if (ele.status == 'pending') {
-//                 return res.status(400).json({
-//                     "message": "Attendance has already been requested"
-//                 })
-//             } else if (ele.status == 'attending') {
-//                 return res.status(400).json({
-//                     "message": "User is already an attendee of the event"
-//                 })
-//             } else {
-//                 return res.status(400).json({
-//                     "message": "Attendance already exists"
-//                 })
-//             }
-//         }
-//     })
-//     //build
-//     const status = 'pending'
-//     const newAttendee = await Attendance.build({
-//         eventId, userId, status
-//     })
-//     await newAttendee.save()
-//     const reNewAtt = {
-//         userId: newAttendee.userId,
-//         status: newAttendee.status
-//     }
-
-//     return res.status(200).json(reNewAtt)
-// })
 
 
 //Change the status of an attendance for an event specified by id
