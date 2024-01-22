@@ -210,7 +210,7 @@ router.put('/:groupId/membership', requireAuth, async (req, res) => {
         if (user.id == group.organizerId) {
             //edit member
             member.status = status
-            member.save()
+            await member.save()
         } else {
             return res.status(403).json({
                 "message": "Current User must already be the organizer"
