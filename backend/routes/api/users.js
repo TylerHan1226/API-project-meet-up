@@ -57,11 +57,18 @@ router.post('/', validateSignup, async (req, res) => {
       user: safeUser
     });
   } catch (err) {
-    const reErr = {
-      message: 'Bad Request',
-      errors: err.errors[0].message
+    const errorObj = {}
+    if (err.errors[0].message.includes("user")) {
+      errorObj.username = "User with that username already exists"
     }
-    return res.status(400).json(reErr)
+    if (err.errors[0].message.includes("email")) {
+      errorObj.email = "User with that email already exists"
+    }
+    const reErr = {
+      message: 'User already exists',
+      errors: errorObj
+    }
+    return res.status(500).json(reErr)
   }
 });
 

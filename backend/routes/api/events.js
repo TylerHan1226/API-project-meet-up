@@ -313,7 +313,6 @@ router.post('/events/:eventId/images', requireAuth, async (req, res) => {
     await newEventImage.save()
     const reNewEventImage = {
         id: newEventImage.id,
-        eventId: newEventImage.eventId,
         url: newEventImage.url,
         preview: newEventImage.preview
     }

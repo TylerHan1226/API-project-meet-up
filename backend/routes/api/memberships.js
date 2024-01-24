@@ -219,6 +219,8 @@ router.put('/:groupId/membership', requireAuth, async (req, res) => {
     }
 
     const reMember = member.get({ plain: true })
+    reMember.memberId = reMember.userId
+    delete reMember.userId
     delete reMember.createdAt
     delete reMember.updatedAt
     return res.status(200).json(reMember)
