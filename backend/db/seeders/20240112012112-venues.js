@@ -22,11 +22,19 @@ module.exports = {
       },
       {
         groupId: 1,
-        address: '7585 Kindle Rd,',
+        address: '7585 Kindle Rd',
         city: 'Legend Valley',
         state: 'OH',
         lat: 39.93972767215494, 
         lng: -82.40795216931674
+      },
+      {
+        groupId: 1,
+        address: '20 Randalls Island Park',
+        city: 'New York',
+        state: 'NY',
+        lat: 40.79667394634237, 
+        lng: -73.92283886507431
       },
       {
         groupId: 2,
@@ -51,6 +59,14 @@ module.exports = {
         state: 'NC',
         lat: 35.327371671144014, 
         lng: -80.71227570550349
+      },
+      {
+        groupId: 5,
+        address: '1200 Getty Center Dr',
+        city: 'Los Angeles',
+        state: 'CA',
+        lat: 34.087956995679946,
+        lng: -118.47566745911918
       },
       {
         groupId: 5,
