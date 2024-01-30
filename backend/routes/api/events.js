@@ -112,6 +112,8 @@ router.get('/events', async (req, res) => {
         if (eachREvent.Venue.length === 0) {
             eachREvent.Venue = null
         }
+        eachREvent.startDate = eachREvent.startDate.toISOString().split('T')[0] + " " + eachREvent.startDate.toISOString().split('T')[1].split('.')[0]
+        eachREvent.endDate = eachREvent.endDate.toISOString().split('T')[0] + " " + eachREvent.endDate.toISOString().split('T')[1].split('.')[0]
         delete eachREvent.Attendances
         delete eachREvent.EventImages
     }
@@ -168,6 +170,8 @@ router.get('/groups/:groupId/events', async (req, res) => {
         if (eachREvent.Venue.length === 0) {
             eachREvent.Venue = null
         }
+        eachREvent.startDate = eachREvent.startDate.toISOString().split('T')[0] + " " + eachREvent.startDate.toISOString().split('T')[1].split('.')[0]
+        eachREvent.endDate = eachREvent.endDate.toISOString().split('T')[0] + " " + eachREvent.endDate.toISOString().split('T')[1].split('.')[0]
         delete eachREvent.Attendances
         delete eachREvent.EventImages
     }
@@ -212,6 +216,8 @@ router.get('/events/:eventId', async (req, res) => {
     if (reEvent.EventImages.length === 0) {
         reEvent.EventImages = null
     }
+    reEvent.startDate = reEvent.startDate.toISOString().split('T')[0] + " " + reEvent.startDate.toISOString().split('T')[1].split('.')[0]
+    reEvent.endDate = reEvent.endDate.toISOString().split('T')[0] + " " + reEvent.endDate.toISOString().split('T')[1].split('.')[0]
     delete reEvent.Attendances
     return res.status(200).json(reEvent)
 })
@@ -261,6 +267,8 @@ router.post('/groups/:groupId/events', requireAuth, eventValidation.createEvent(
     await newEvent.save()
 
     const reNewEvent = newEvent.get({ plain: true })
+    reNewEvent.startDate = reNewEvent.startDate.toISOString().split('T')[0] + " " + reNewEvent.startDate.toISOString().split('T')[1].split('.')[0]
+    reNewEvent.endDate = reNewEvent.endDate.toISOString().split('T')[0] + " " + reNewEvent.endDate.toISOString().split('T')[1].split('.')[0]
     delete reNewEvent.createdAt
     delete reNewEvent.updatedAt
     return res.status(200).json(reNewEvent)
@@ -377,6 +385,8 @@ router.put('/events/:eventId', requireAuth, eventValidation.createEvent(), async
     await event.save()
 
     const reEvent = event.get({ plain: true })
+    reEvent.startDate = reEvent.startDate.toISOString().split('T')[0] + " " + reEvent.startDate.toISOString().split('T')[1].split('.')[0]
+    reEvent.endDate = reEvent.endDate.toISOString().split('T')[0] + " " + reEvent.endDate.toISOString().split('T')[1].split('.')[0]
     delete reEvent.Group
     delete reEvent.createdAt
     delete reEvent.updatedAt

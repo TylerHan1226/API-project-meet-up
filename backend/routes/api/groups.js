@@ -47,6 +47,8 @@ router.get('/', async (req, res) => {
                 eachRGroup.previewImage = previewImage
             }
         }
+        eachRGroup.createdAt = eachRGroup.createdAt.toISOString().split('T')[0] + " " + eachRGroup.createdAt.toISOString().split('T')[1].split('.')[0]
+        eachRGroup.updatedAt = eachRGroup.updatedAt.toISOString().split('T')[0] + " " + eachRGroup.updatedAt.toISOString().split('T')[1].split('.')[0]
         delete eachRGroup.GroupImages
     }
 
@@ -99,6 +101,8 @@ router.get('/current', requireAuth, async (req, res) => {
         } else {
             ele.previewImage = null
         }
+        ele.createdAt = ele.createdAt.toISOString().split('T')[0] + " " + ele.createdAt.toISOString().split('T')[1].split('.')[0]
+        ele.updatedAt = ele.updatedAt.toISOString().split('T')[0] + " " + ele.updatedAt.toISOString().split('T')[1].split('.')[0]
         delete ele.Memberships
         delete ele.GroupImages
     })
@@ -130,6 +134,8 @@ router.get('/:groupId', async (req, res) => {
     if (resultGroups.Memberships.length !== 0) {
         resultGroups.numMembers = resultGroups.Memberships.length
     }
+    resultGroups.createdAt = resultGroups.createdAt.toISOString().split('T')[0] + " " + resultGroups.createdAt.toISOString().split('T')[1].split('.')[0]
+    resultGroups.updatedAt = resultGroups.updatedAt.toISOString().split('T')[0] + " " + resultGroups.updatedAt.toISOString().split('T')[1].split('.')[0]
     delete resultGroups.Memberships
     return res.status(200).json(resultGroups)
 })
@@ -145,8 +151,10 @@ router.post('/', requireAuth, groupValidation.createGroup(), async (req, res) =>
         organizerId, name, about, type, private, city, state
     })
     await newGroup.save()
-
-    return res.status(201).json(newGroup);
+    const reGroup = newGroup.toJSON()
+    reGroup.createdAt = reGroup.createdAt.toISOString().split('T')[0] + " " + reGroup.createdAt.toISOString().split('T')[1].split('.')[0]
+    reGroup.updatedAt = reGroup.updatedAt.toISOString().split('T')[0] + " " + reGroup.updatedAt.toISOString().split('T')[1].split('.')[0]
+    return res.status(201).json(reGroup);
 })
 
 
@@ -208,8 +216,11 @@ router.put('/:groupId', requireAuth, groupValidation.createGroup(), async (req, 
     group.city = city
     group.state = state
     await group.save()
+    const reGroup = group.toJSON()
+    reGroup.createdAt = reGroup.createdAt.toISOString().split('T')[0] + " " + reGroup.createdAt.toISOString().split('T')[1].split('.')[0]
+    reGroup.updatedAt = reGroup.updatedAt.toISOString().split('T')[0] + " " + reGroup.updatedAt.toISOString().split('T')[1].split('.')[0]
 
-    return res.status(200).json(group)
+    return res.status(200).json(reGroup)
 })
 
 
