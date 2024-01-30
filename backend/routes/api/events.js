@@ -72,8 +72,11 @@ router.get('/events', async (req, res) => {
     if (size) {
         paginationObj.limit = size;
     }
-    if (page) {
+    if (page && size) {
         paginationObj.offset = size * (page - 1);
+    }
+    if (page && !size) {
+        paginationObj.offset = 20 * (page - 1);
     }
     //find events
     const events = await Event.findAll({
@@ -117,6 +120,11 @@ router.get('/events', async (req, res) => {
         delete eachREvent.Attendances
         delete eachREvent.EventImages
     }
+    // if (reEvents.length === 0) {
+    //     return res.status(200).json({
+    //         'message': 'No event found'
+    //     })
+    // }
 
     return res.status(200).json({ Events: reEvents })
 })
