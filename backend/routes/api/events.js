@@ -28,10 +28,10 @@ router.get('/events', async (req, res) => {
     //validation
     if (Object.keys(req.query).length) {
         const err = {}
-        if (!page || page < 1) err.page = "Page must be greater than or equal to 1"
-        if (!size || size < 1) err.size = "Size must be greater than or equal to 1"
+        if (page < 1 || page > 10) err.page = "Page must be greater than or equal to 1 and less than or equal to 10."
+        if (size < 1 || size > 20) err.size = "Size must be greater than or equal to 1 and less than or equal to 20."
         if (name && (typeof name !== 'string' || !isNaN(Number(name)))) err.name = "Name must be a string"
-        if (type && !['Online', 'In person'].includes(type)) err.type = "Type must be 'Online' or 'In Person'"
+        if (type && !['Online', 'In person'].includes(type)) err.type = "Type must be 'Online' or 'In person'"
         if (startDate) {
             const startDateObj = new Date(startDate)
             const currentTime = new Date().getTime();
@@ -62,10 +62,13 @@ router.get('/events', async (req, res) => {
         };
     }
     if (startDate) {
-        queryObj.where.startDate = startDate
+        queryObj.where.startDate = {[Op.substring]: startDate}
     }
     //paginationObj
-    let paginationObj = {}
+    let paginationObj = {
+        limit: 20,
+        offset: 0
+    }
     if (size) {
         paginationObj.limit = size;
     }
