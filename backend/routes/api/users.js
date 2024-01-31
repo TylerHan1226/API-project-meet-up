@@ -28,6 +28,16 @@ const validateSignup = [
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.'),
+    check('firstName')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .isAlpha()
+      .withMessage('First Name is required, and it cannot be a number or date.'),
+    check('lastName')
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .isAlpha()
+      .withMessage('Last Name is required, and it cannot be a number or date.'),
     check('password')
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })
