@@ -160,7 +160,92 @@ module.exports = {
         eventId: 8,
         userId: 1,
         status: 'attending'
-      }     
+      },
+      {
+        eventId: 8,
+        userId: 2,
+        status: 'attending'
+      },
+      {
+        eventId: 8,
+        userId: 5,
+        status: 'attending'
+      },
+      {
+        eventId: 8,
+        userId: 11,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 1,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 3,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 7,
+        status: 'pending'
+      },
+      {
+        eventId: 9,
+        userId: 11,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 12,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 13,
+        status: 'attending'
+      },
+      {
+        eventId: 9,
+        userId: 14,
+        status: 'attending'
+      },
+      {
+        eventId: 10,
+        userId: 11,
+        status: 'attending'
+      },
+      {
+        eventId: 1,
+        userId: 11,
+        status: 'attending'
+      },
+      {
+        eventId: 10,
+        userId: 12,
+        status: 'attending'
+      },
+      {
+        eventId: 10,
+        userId: 13,
+        status: 'attending'
+      },
+      {
+        eventId: 10,
+        userId: 14,
+        status: 'attending'
+      },
+      {
+        eventId: 10,
+        userId: 1,
+        status: 'pending'
+      },
+      {
+        eventId: 10,
+        userId: 3,
+        status: 'pending'
+      }
     ], options)
   },
 

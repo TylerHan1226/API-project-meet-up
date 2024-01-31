@@ -6,7 +6,7 @@ const { Op, or } = require('sequelize');
 const { User, Group, GroupImage, Membership, Venue, Event, EventImage, Attendance } = require('../../db/models');
 
 //Validation middleware
-const { requireAuth } = require('../../utils/auth')
+const { requireAuth, restoreUser } = require('../../utils/auth')
 const eventValidation = require('../../input-validation/eventValidation')
 
 
@@ -57,12 +57,17 @@ router.get('/events', async (req, res) => {
         };
     }
     if (type) {
-        queryObj.where.type = {
-            [Op.substring]: type
-        };
+        queryObj.where.type = type;
     }
     if (startDate) {
-        queryObj.where.startDate = {[Op.substring]: startDate}
+        if (startDate.split(' ').length == 1) {
+            const endTime = new Date(startDate).toISOString().split('T')[0] + ' 24:00:00'
+            queryObj.where.startDate = {
+                [Op.between]: [startDate, endTime]
+            };
+        } else {
+            queryObj.where.startDate = startDate
+        }
     }
     //paginationObj
     let paginationObj = {
@@ -78,6 +83,8 @@ router.get('/events', async (req, res) => {
     if (page && !size) {
         paginationObj.offset = 20 * (page - 1);
     }
+    // return res.json(startDate)
+    // return res.json(queryObj)
     //find events
     const events = await Event.findAll({
         attributes: { exclude: ['description', 'capacity', 'price', 'createdAt', 'updatedAt'] },

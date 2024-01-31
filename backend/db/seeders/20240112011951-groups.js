@@ -56,6 +56,15 @@ module.exports = {
       private: false,
       city: 'Los Angeles',
       state: 'CA'
+    },
+    {
+      organizerId: 11,
+      name: 'Inter Miami CF',
+      about: "Inter Miami, established in 2018, is an American professional soccer club based in Fort Lauderdale, Florida.",
+      type: 'In person',
+      private: false,
+      city: 'Miami',
+      state: 'FL'
     }
    ], options)
   },

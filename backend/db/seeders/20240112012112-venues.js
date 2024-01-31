@@ -70,12 +70,20 @@ module.exports = {
       },
       {
         groupId: 5,
-        address: '1200 Getty Center Dr',
-        city: 'Los Angeles',
-        state: 'CA',
-        lat: 34.087956995679946,
-        lng: -118.47566745911918
-      }
+        address: '253 40 Bond',
+        city: 'New York',
+        state: 'NY',
+        lat: 40.72636190580304,
+        lng: -73.99303983081657
+      },
+      {
+        groupId: 6,
+        address: '1350 NW 55th St',
+        city: 'Fort Lauderdale',
+        state: 'FL',
+        lat: 26.197226275335346,
+        lng: -80.16113378633884
+      } //venueId: 9
     ], options)
   },
 

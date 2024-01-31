@@ -13,73 +13,108 @@ module.exports = {
     await User.bulkCreate([
       {
         email: 'user1@user.io',
-        username: 'User1',
+        username: 'Tyler_Han96',
         firstName: 'Tyler',
         lastName: 'Han',
         hashedPassword: bcrypt.hashSync('password')
       },
       {
         email: 'user2@user.io',
-        username: 'User2',
+        username: 'Chris_LinDT',
         firstName: 'Chris',
         lastName: 'Lin',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
         email: 'user3@user.io',
-        username: 'User3',
+        username: 'AD19',
         firstName: 'Alphonso',
         lastName: 'Davies',
         hashedPassword: bcrypt.hashSync('password3')
       },
       {
         email: 'user4@user.io',
-        username: 'User4',
+        username: 'Slipknot-no.8',
         firstName: 'Corey',
         lastName: 'Taylor',
         hashedPassword: bcrypt.hashSync('password4')
       },
       {
         email: 'user5@user.io',
-        username: 'User5',
+        username: 'Tony1020',
         firstName: 'Tony',
         lastName: 'Han',
         hashedPassword: bcrypt.hashSync('password5')
       },
       {
         email: 'user6@user.io',
-        username: 'User6',
+        username: 'Slipknot-no.1',
         firstName: 'Joey',
         lastName: 'Jordison',
         hashedPassword: bcrypt.hashSync('password6')
       },
       {
         email: 'user7@user.io',
-        username: 'User7',
+        username: 'JesseBlack',
         firstName: 'Jesse',
         lastName: 'Liu',
         hashedPassword: bcrypt.hashSync('password7')
       },
       {
         email: 'user8@user.io',
-        username: 'User8',
+        username: 'SweetDreams',
         firstName: 'Marilyn',
         lastName: 'Manson',
         hashedPassword: bcrypt.hashSync('password8')
       },
       {
         email: 'user9@user.io',
-        username: 'User9',
+        username: 'Excision',
         firstName: 'Jeff',
         lastName: 'Abel',
         hashedPassword: bcrypt.hashSync('password9')
       },
       {
         email: 'user10@user.io',
-        username: 'User10',
+        username: 'Jessica0406',
         firstName: 'Jessica',
         lastName: 'Audiffred',
         hashedPassword: bcrypt.hashSync('password10')
+      },
+      {
+        email: 'user11@user.io',
+        username: 'Messi10',
+        firstName: 'Lionel',
+        lastName: 'Messi',
+        hashedPassword: bcrypt.hashSync('password11')
+      },
+      {
+        email: 'user12@user.io',
+        username: 'Suárez9',
+        firstName: 'Luis',
+        lastName: 'Suárez',
+        hashedPassword: bcrypt.hashSync('password12')
+      },
+      {
+        email: 'user13@user.io',
+        username: 'CDM No.1',
+        firstName: 'Sergio',
+        lastName: 'Busquets',
+        hashedPassword: bcrypt.hashSync('password13')
+      },
+      {
+        email: 'user14@user.io',
+        username: 'JA18',
+        firstName: 'Jordi',
+        lastName: 'Alba',
+        hashedPassword: bcrypt.hashSync('password14')
+      },
+      {
+        email: 'user15@user.io',
+        username: 'Gavi8',
+        firstName: 'Pablo',
+        lastName: 'Gavi',
+        hashedPassword: bcrypt.hashSync('password15')
       }
     ], { validate: true });
   },

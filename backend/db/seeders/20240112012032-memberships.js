@@ -30,7 +30,7 @@ module.exports = {
     {
       userId: 1,
       groupId: 5,
-      status: 'pending'
+      status: 'member'
     },
     {
       userId: 2,
@@ -50,6 +50,11 @@ module.exports = {
     {
       userId: 2,
       groupId: 4,
+      status: 'member'
+    },
+    {
+      userId: 2,
+      groupId: 5,
       status: 'member'
     },
     {
@@ -141,6 +146,56 @@ module.exports = {
       userId: 10,
       groupId: 4,
       status: 'pending'
+    },
+    {
+      userId: 11,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 11,
+      groupId: 1,
+      status: 'member'
+    },
+    {
+      userId: 11,
+      groupId: 5,
+      status: 'member'
+    },
+    {
+      userId: 12,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 13,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 14,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 15,
+      groupId: 6,
+      status: 'pending'
+    },
+    {
+      userId: 1,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 3,
+      groupId: 6,
+      status: 'member'
+    },
+    {
+      userId: 7,
+      groupId: 6,
+      status: 'member'
     }
    ], options)
   },

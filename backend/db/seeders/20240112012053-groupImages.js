@@ -48,9 +48,34 @@ module.exports = {
         preview: true
       },
       {
+        groupId: 2,
+        url: 'https://dotesports.com/wp-content/uploads/2023/08/lol-lcs-c9-summer-2023.jpg?w=1200',
+        preview: false
+      },
+      {
+        groupId: 2,
+        url: 'https://news.cgtn.com/news/3d3d514f35676a4e30457a6333566d54/img/4d59a7559c6a432d9368e21427b57aef/4d59a7559c6a432d9368e21427b57aef.jpg',
+        preview: false
+      },
+      {
         groupId: 3,
-        url: 'https://www.si.com/college/recruiting/basketball/the-professor-grayson-boucher-and1-mixtape-streetball-social-injustice-racism',
+        url: 'https://pbs.twimg.com/media/F9Kb2DebYAANapZ.jpg',
         preview: true
+      },
+      {
+        groupId: 3,
+        url: 'https://m.media-amazon.com/images/M/MV5BZWQ1OGFhYjUtNTZhNy00YTE5LTlkZWItZTQzNmFkYjYxMjVkXkEyXkFqcGdeQXVyNjUxMjc1OTM@._V1_.jpg',
+        preview: false
+      },
+      {
+        groupId: 3,
+        url: 'https://img.olympics.com/images/image/private/t_s_w960/t_s_16_9_g_auto/f_auto/primary/c5r52rbifxn2srhp9no0',
+        preview: false
+      },
+      {
+        groupId: 3,
+        url: 'https://phantom-marca.unidadeditorial.es/24314b937c09bc1b0e6a37571a9523a7/resize/828/f/jpg/assets/multimedia/imagenes/2021/08/31/16303964956430.jpg',
+        preview: false
       },
       {
         groupId: 4,
@@ -82,6 +107,41 @@ module.exports = {
         url: 'https://www.tripsavvy.com/thmb/GsWkeg3Z1dPlB5ercleP7FxtxJI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/KusamainfinityroomGettyImages-539583358-09d09da8beb941c1b34e921c3ef5d995.jpg',
         preview: true
       },
+      {
+        groupId: 5,
+        url: 'https://arquitecturaviva.com/assets/uploads/articulos/75507/av_216506.webp?h=c1772bd3',
+        preview: false
+      },
+      {
+        groupId: 6,
+        url: 'https://phantom-marca.unidadeditorial.es/37ff1e724214ec3dd592df649f619236/resize/828/f/jpg/assets/multimedia/imagenes/2023/10/10/16969735691191.jpg',
+        preview: true
+      },
+      {
+        groupId: 6,
+        url: 'https://media.newyorker.com/photos/64bc4330ef09d4a0e04cb249/master/pass/Rosen-Messi-Miami.jpg',
+        preview: false
+      },
+      {
+        groupId: 6,
+        url: 'https://cdn.i-scmp.com/sites/default/files/styles/768x768/public/d8/images/canvas/2024/01/30/15cac11e-b1d0-4e76-9c79-f788ad78b621_ead6c92e.jpg?itok=4lUczIMZ&v=1706580991',
+        preview: false
+      },
+      {
+        groupId: 6,
+        url: 'https://prod-media.beinsports.com/image/1687530750487_f6e445ae-0033-49dc-99e5-d1b395cf7c42.1920.JPG?ver=09-01-2024',
+        preview: false
+      },
+      {
+        groupId: 6,
+        url: 'https://cdn1.intermiami.news/uploads/52/2023/10/GettyImages-1710638816-1140x760.jpg',
+        preview: false
+      },
+      {
+        groupId: 6,
+        url: 'https://www.sportico.com/wp-content/uploads/2023/08/GettyImages-1610631306-e1692977726690.jpg?w=1280&h=720&crop=1',
+        preview: false
+      }
     ], options)
   },
 

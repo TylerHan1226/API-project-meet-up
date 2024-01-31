@@ -42,10 +42,17 @@ router.get('/groups/:groupId/venues', requireAuth, async (req, res) => {
         })
     }
 
-    const venue = await Venue.findAll({
+    const venues = await Venue.findAll({
         where: {groupId: groupId}
     })
-    return res.status(200).json({Venues: venue})
+    const reVenue = []
+    venues.forEach(ele => {
+        ele = ele.toJSON()
+        ele.lat = parseFloat(ele.lat)
+        ele.lng = parseFloat(ele.lng)
+        reVenue.push(ele)
+    })
+    return res.status(200).json({Venues: reVenue})
 })
 
 
@@ -85,8 +92,8 @@ router.post('/groups/:groupId/venues', requireAuth, venueValidation.createVenue(
         address: newVenue.address,
         city: newVenue.city,
         state: newVenue.state,
-        lat: newVenue.lat,
-        lng: newVenue.lng
+        lat: parseFloat(newVenue.lat),
+        lng: parseFloat(newVenue.lng)
     }
     return res.status(200).json(reNewGroupImg)
 })

@@ -78,27 +78,49 @@ module.exports = {
         startDate: '2024-11-01 22:00:00',
         endDate: '2023-11-02 22:00:00'
       },
-      {
+      { //eventId: 7
         venueId: 7,
         groupId: 5,
         name: 'Los Angeles Museum tour',
-        description: "LA Museum Tour: 3-day architectural odyssey, discover iconic museums!",
+        description: "LA Museum Tour: 2-day architectural odyssey, discover iconic museums!",
         type: 'In person',
-        capacity: 10,
-        price: 125,
+        capacity: 20,
+        price: 200,
         startDate: '2024-12-01 08:00:00',
-        endDate: '2024-12-01 19:00:00'
+        endDate: '2024-12-02 19:00:00'
       },
-      {
+      { //eventId: 8
         venueId: 8,
         groupId: 5,
-        name: 'Los Angeles Museum tour',
-        description: "LA Museum Tour: 3-day architectural odyssey, discover iconic museums!",
+        name: 'NYC Architecture Tour',
+        description: "A great opportunity to explore great architecture in NYC with professionals",
         type: 'In person',
-        capacity: 10,
-        price: 125,
-        startDate: '2024-12-01 08:00:00',
-        endDate: '2024-12-01 19:00:00'
+        capacity: 15,
+        price: 240,
+        startDate: '2024-10-01 8:00:00',
+        endDate: '2024-10-01 20:00:00'
+      },
+      { //eventId: 9
+        venueId: 9,
+        groupId: 6,
+        name: 'Inter Miami vs Al-Nassr',
+        description: "This is another reunion of Cristiano Ronaldo and Lionel Messi, leading their respective teams to determine the superior one.",
+        type: 'In person',
+        capacity: 21000,
+        price: 500,
+        startDate: '2024-06-01 18:30:00',
+        endDate: '2024-06-01 21:30:00'
+      },
+      { //eventId: 10
+        venueId: 9,
+        groupId: 6,
+        name: 'Inter Miami vs FC Barcelona',
+        description: "Messi will be facing his former club, where he grew up as a star and leader",
+        type: 'In person',
+        capacity: 21000,
+        price: 1000,
+        startDate: '2024-06-19 12:30:00',
+        endDate: '2024-06-19 15:30:00'
       }
     ], options)
   },
