@@ -71,14 +71,36 @@ module.exports = {
         venueId: 6,
         groupId: 4,
         name: 'Made in Iowa',
-        description: "Metal Extravaganza: Raw energy, intense riffs, headbanging vibes!",
+        description: "Corey Taylor, the lead singer of Des Moines favorite heavy metal band Slipknot, returns to his hometown!",
         type: 'In person',
-        capacity: 200,
-        price: 60,
+        capacity: 1500,
+        price: 80,
         startDate: '2024-11-01 22:00:00',
         endDate: '2023-11-02 22:00:00'
       },
-      { //eventId: 7
+      {//eventId: 7
+        venueId: 10,
+        groupId: 4,
+        name: 'Chthonic: Final Battle at Sing Ling Temple',
+        description: "Sing-Ling temple is the most essential scene in Chthonic's latest 3 albums, where the final battle took place between the Puli aboriginal and the invaders.",
+        type: 'In person',
+        capacity: 1000,
+        price: 150,
+        startDate: '2024-12-20 20:00:00',
+        endDate: '2024-12-20 22:00:00'
+      },
+      {//eventId: 8
+        venueId: 10,
+        groupId: 4,
+        name: "Headbanger's Boat 2024",
+        description: "Heavy Metal thrashes through the high seas October 28 - November 1, 2024 aboard Norwegian Gem!",
+        type: 'In person',
+        capacity: 200,
+        price: 250,
+        startDate: '2024-10-28 12:00:00',
+        endDate: '2024-11-01 22:00:00'
+      },
+      { //eventId: 9
         venueId: 7,
         groupId: 5,
         name: 'Los Angeles Museum tour',
@@ -89,7 +111,7 @@ module.exports = {
         startDate: '2024-12-01 08:00:00',
         endDate: '2024-12-02 19:00:00'
       },
-      { //eventId: 8
+      { //eventId: 10
         venueId: 8,
         groupId: 5,
         name: 'NYC Architecture Tour',
@@ -100,7 +122,7 @@ module.exports = {
         startDate: '2024-10-01 8:00:00',
         endDate: '2024-10-01 20:00:00'
       },
-      { //eventId: 9
+      { //eventId: 11
         venueId: 9,
         groupId: 6,
         name: 'Inter Miami vs Al-Nassr',
@@ -111,7 +133,7 @@ module.exports = {
         startDate: '2024-06-01 18:30:00',
         endDate: '2024-06-01 21:30:00'
       },
-      { //eventId: 10
+      { //eventId: 12
         venueId: 9,
         groupId: 6,
         name: 'Inter Miami vs FC Barcelona',

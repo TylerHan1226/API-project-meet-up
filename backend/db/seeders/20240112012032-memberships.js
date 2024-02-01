@@ -159,6 +159,11 @@ module.exports = {
     },
     {
       userId: 11,
+      groupId: 4,
+      status: 'member'
+    },
+    {
+      userId: 11,
       groupId: 5,
       status: 'member'
     },
