@@ -233,8 +233,8 @@ router.get('/events/:eventId', async (req, res) => {
     }
     reEvent.startDate = reEvent.startDate.toISOString().split('T')[0] + " " + reEvent.startDate.toISOString().split('T')[1].split('.')[0]
     reEvent.endDate = reEvent.endDate.toISOString().split('T')[0] + " " + reEvent.endDate.toISOString().split('T')[1].split('.')[0]
-    reEvent.lat = parseFloat(reEvent.lat)
-    reEvent.lng = parseFloat(reEvent.lng)
+    reEvent.Venue.lat = parseFloat(reEvent.Venue.lat)
+    reEvent.Venue.lng = parseFloat(reEvent.Venue.lng)
     delete reEvent.Attendances
     return res.status(200).json(reEvent)
 })
