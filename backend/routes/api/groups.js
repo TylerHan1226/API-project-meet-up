@@ -129,15 +129,19 @@ router.get('/:groupId', async (req, res) => {
             "message": "Group couldn't be found"
         })
     }
-    const resultGroups = group.toJSON()
-    resultGroups.numMembers = 1
-    if (resultGroups.Memberships.length !== 0) {
-        resultGroups.numMembers = resultGroups.Memberships.length
+    const resultGroup = group.toJSON()
+    resultGroup.numMembers = 1
+    if (resultGroup.Memberships.length !== 0) {
+        resultGroup.numMembers = resultGroup.Memberships.length
     }
-    resultGroups.createdAt = resultGroups.createdAt.toISOString().split('T')[0] + " " + resultGroups.createdAt.toISOString().split('T')[1].split('.')[0]
-    resultGroups.updatedAt = resultGroups.updatedAt.toISOString().split('T')[0] + " " + resultGroups.updatedAt.toISOString().split('T')[1].split('.')[0]
-    delete resultGroups.Memberships
-    return res.status(200).json(resultGroups)
+    resultGroup.createdAt = resultGroup.createdAt.toISOString().split('T')[0] + " " + resultGroup.createdAt.toISOString().split('T')[1].split('.')[0]
+    resultGroup.updatedAt = resultGroup.updatedAt.toISOString().split('T')[0] + " " + resultGroup.updatedAt.toISOString().split('T')[1].split('.')[0]
+    resultGroup.Venues.forEach(ele => {
+        ele.lat = parseFloat(ele.lat)
+        ele.lng = parseFloat(ele.lng)
+    })
+    delete resultGroup.Memberships
+    return res.status(200).json(resultGroup)
 })
 
 

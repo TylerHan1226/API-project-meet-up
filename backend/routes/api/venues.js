@@ -130,6 +130,8 @@ router.put('/venues/:venueId', requireAuth, venueValidation.createVenue(), async
     venue.lng = lng
     await venue.save()
     let reVenue = venue.get({ plain: true })
+    reVenue.lat = parseFloat(reVenue.lat)
+    reVenue.lng = parseFloat(reVenue.lng)
     delete reVenue.Group
     delete reVenue.updatedAt
     return res.status(200).json(reVenue)
