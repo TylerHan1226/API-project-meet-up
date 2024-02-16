@@ -8,11 +8,11 @@ const { User, Group, GroupImage, Membership, Venue, Event, EventImage, Attendanc
 //Validation middleware
 const { requireAuth } = require('../../utils/auth')
 
-//confirming route
-router.use((req, res, next) => {
-    console.log('Attendance route hit!');
-    next();
-});
+// //confirming route
+// router.use((req, res, next) => {
+//     console.log('Attendance route hit!');
+//     next();
+// });
 
 
 

@@ -10,11 +10,11 @@ const { requireAuth } = require('../../utils/auth');
 const groupValidation = require('../../input-validation/groupValidation');
 
 
-//confirming route
-router.use((req, res, next) => {
-    console.log('Group route hit!');
-    next();
-});
+// //confirming route
+// router.use((req, res, next) => {
+//     console.log('Group route hit!');
+//     next();
+// });
 
 
 //Get all Groups

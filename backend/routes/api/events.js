@@ -10,11 +10,11 @@ const { requireAuth, restoreUser } = require('../../utils/auth')
 const eventValidation = require('../../input-validation/eventValidation')
 
 
-//confirming route
-router.use((req, res, next) => {
-    console.log('Event route hit!');
-    next();
-});
+// //confirming route
+// router.use((req, res, next) => {
+//     console.log('Event route hit!');
+//     next();
+// });
 
 
 

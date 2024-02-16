@@ -10,11 +10,11 @@ const { requireAuth } = require('../../utils/auth');
 const venueValidation = require('../../input-validation/venueValidation');
 
 
-//confirming route
-router.use((req, res, next) => {
-    console.log('Venue route hit!');
-    next();
-});
+// //confirming route
+// router.use((req, res, next) => {
+//     console.log('Venue route hit!');
+//     next();
+// });
 
 
 // Get All Venues for a Group specified by its id

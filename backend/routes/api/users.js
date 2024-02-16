@@ -9,10 +9,10 @@ const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-router.use((req, res, next) => {
-  console.log('User route hit!');
-  next();
-});
+// router.use((req, res, next) => {
+//   console.log('User route hit!');
+//   next();
+// });
 
 // middleware to validate sign up - checking email, username, password
 const validateSignup = [
