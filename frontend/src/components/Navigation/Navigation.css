@@ -5,3 +5,23 @@
 .hidden {
   display: none;
 }
+
+.app-icon {
+  width: auto;
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+
+#header-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: grey solid 2px;
+}
+
+#user-auth {
+  margin-left: auto;
+}
+
+/* .loginSignUp-buttons {
+  color: red;
+} */

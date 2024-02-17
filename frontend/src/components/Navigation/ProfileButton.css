@@ -1,0 +1,27 @@
+.profile-dropdown {
+    position: absolute;
+    top: 32px;
+    right: 8px;
+    /* Ensures dropdowns align to the right */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    list-style: none;
+    z-index: 1;
+    /* Ensure it's on top of other elements */
+}
+
+.profile-dropdown.hidden {
+    display: none;
+}
+
+.fa-user-circle {
+    width: 54px;
+    font-size: 20px;
+    margin: 4px;
+}
+
+.profile-details {
+    margin: 8px;
+}

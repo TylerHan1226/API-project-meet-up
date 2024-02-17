@@ -11,6 +11,10 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  let buttonActive = !(credential.length <4 || password.length < 6)
+
+  console.log("errors ==>", errors)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
@@ -18,8 +22,9 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        console.log("data ==> ", data)
+        if (data && data.message) {
+          setErrors(data);
         }
       });
   };
@@ -46,8 +51,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+        {errors.message && <p className='error-message'>* {errors.message}</p>}
+        <button type="submit" disabled={!buttonActive}>Log In</button>
+        <button>Log in as Demo User</button>
       </form>
     </>
   );
