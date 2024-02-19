@@ -9,11 +9,11 @@ function Groups() {
 
     const dispatch = useDispatch()
     const groups = useSelector(selectGroupsArr)
+
     useEffect(() => {
         dispatch(fetchGroupsThunk())
     }, [dispatch])
 
-    // console.log("groups in Groups.jsx ==>", groups)
     let groupHeader = null
     if (groups) {
         groupHeader = 'highlighted'
@@ -28,7 +28,7 @@ function Groups() {
             <p id="groupEvent-header-text">Groups in Meetup</p>
 
             <div id='groups-container'>
-                {groups.map(eachGroup => (
+                {groups && Array.isArray(groups) && groups.map(eachGroup => (
                     <GroupItem key={eachGroup.id} group={eachGroup} />
                 ))}
             </div>

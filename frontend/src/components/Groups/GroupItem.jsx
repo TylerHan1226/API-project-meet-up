@@ -1,21 +1,32 @@
 import { Link } from 'react-router-dom'
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { fetchAllEventByGroupThunk } from "../../store/groups";
 import './Groups.css'
 
 
-function GroupItem(group) {
+function GroupItem({ group }) {
+    const dispatch = useDispatch()
+    // console.log('group.id ==>', group.id)
 
-    // console.log("group in GroupItem.jsx ==>", group.group)
-    const eachGroup = group.group
+    const events = useSelector(state => state.groups.events)
+    let eventList = []
+    if (events) {
+        eventList = events && events.Events.filter(event => event.groupId === group.id);
+    }
+
+    useEffect(() => {
+        dispatch(fetchAllEventByGroupThunk());
+    }, [dispatch]);
 
     return (
-        <Link id='group-item-container' to={`/groups/${eachGroup.id}`}>
-            <img className='group-image' src={eachGroup.previewImage} alt='group preview image' />
+        <Link id='group-item-container' to={`/groups/${group.id}`}>
+            {eventList.length !== 0 && <img className='group-image' src={group.previewImage} alt='group preview image' />}
             <div id='group-detail-container'>
-                <h2>{eachGroup.name}</h2>
-                <p>{eachGroup.city}, {eachGroup.state}</p>
-                <p>{eachGroup.about}</p>
-                {/* <p>{eachGroup.id}</p> */}
+                <h2>{group.name}</h2>
+                <p>{group.city}, {group.state}</p>
+                <p>{group.about}</p>
+                {eventList.length !== 0 && <p>{eventList.length} events</p>}
             </div>
         </Link>
     )

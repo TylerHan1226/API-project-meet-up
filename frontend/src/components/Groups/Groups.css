@@ -42,7 +42,7 @@
     border-bottom: solid 2px lightgrey;
 }
 
-#group-detail-container {
+#group-detail-page-container {
     display: flex;
     flex-direction: column;
     margin-left: 16px;
@@ -50,4 +50,17 @@
 
 .group-image {
     width: 480px;
+}
+
+.img-detail-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.back-button {
+    font-size: 20px;
+}
+
+#group-preview-img {
+    width: 50%;
 }
