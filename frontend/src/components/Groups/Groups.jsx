@@ -23,7 +23,7 @@ function Groups() {
         <div id="groupEvent-page-container">
             <div id='groupEvent-link-header'>
                 <h1 id='event-header'>Events</h1>
-                <h1 class={groupHeader}>Groups</h1>
+                <h1 className={groupHeader}>Groups</h1>
             </div>
             <p id="groupEvent-header-text">Groups in Meetup</p>
 
