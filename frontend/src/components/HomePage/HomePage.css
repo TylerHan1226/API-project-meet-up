@@ -1,3 +1,8 @@
+#homepage-container {
+    display: flex;
+    flex-direction: column;
+}
+
 #homepage-description-container {
     display: flex;
     flex-direction: row;
@@ -36,4 +41,9 @@
 
 .homepage-action-icons {
     font-size: 68px;
+}
+
+#join-meetup-button {
+    width: 10%;
+    align-self: center;
 }
