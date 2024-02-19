@@ -14,12 +14,12 @@ module.exports = {
     await GroupImage.bulkCreate([
       {
         groupId: 1,
-        url: 'https://www.lostlandsfestival.com/wp-content/uploads/2023/10/Lost_Lands_2023_Pics_14.jpg',
+        url: 'https://res.cloudinary.com/do8l6gpqp/image/upload/v1708383842/Lost_Lands_2023_Pics_14_hea0ws.jpg',
         preview: true
       },
       {
         groupId: 1,
-        url: 'https://images.ctfassets.net/meiq8c2ukzgo/6O0aD53ikQ8hEv0fIkZfLT/7300c8a25ecd6a512d517febc90779f6/excision-800x500.jpg?w=1200&h=627&q=90&fit=thumb&fm=jpg&f=center',
+        url: 'https://res.cloudinary.com/do8l6gpqp/image/upload/v1708384021/excision-800x500_d2z8ah.jpg',
         preview: false
       },
       {

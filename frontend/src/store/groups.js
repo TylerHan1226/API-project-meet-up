@@ -29,7 +29,6 @@ export const fetchGroupsThunk = () => async (dispatch) => {
     if (!response.ok) {
         throw new Error('Failed to fetch groups')
     }
-    // console.log('groups in groups.js ==>', response)
     const groups = await response.json()
     dispatch(loadGroups(groups))
 }
