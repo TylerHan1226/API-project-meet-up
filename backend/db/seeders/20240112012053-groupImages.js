@@ -14,7 +14,7 @@ module.exports = {
     await GroupImage.bulkCreate([
       {
         groupId: 1,
-        url: 'https://www.lostlandsfestival.com/wp-content/uploads/2023/10/Lost_Lands_2023_Pics_14.jpg',
+        url: 'https://drive.google.com/drive/u/1/folders/1iBeIyUgb1ykI3cnosuRzfbFQ1EEjEO0g',
         preview: true
       },
       {
