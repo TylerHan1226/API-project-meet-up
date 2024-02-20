@@ -12,14 +12,16 @@
     width: 90%;
 }
 
-#event-header {
+.un-highlighted-header {
     margin-right: 16px;
     color: grey;
+    text-decoration: none;
 }
 
 .highlighted {
     color: red;
     text-decoration: underline;
+    margin-right: 16px;
 }
 
 #groupEvent-header-text {
@@ -34,7 +36,7 @@
     width: 90%;
 }
 
-#group-item-container {
+#item-container {
     display: flex;
     flex-direction: row;
     margin-bottom: 16px;
@@ -48,8 +50,14 @@
     margin-left: 16px;
 }
 
-.group-image {
+.item-image {
     width: 480px;
+    margin-right: 16px;
+}
+
+#item-container {
+    text-decoration: none;
+    color: black;
 }
 
 .img-detail-container {

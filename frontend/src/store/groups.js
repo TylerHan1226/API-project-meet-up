@@ -43,7 +43,7 @@ export const fetchGroupDetailThunk = (groupId) => async (dispatch) => {
     dispatch(loadGroupDetails(group))
 }
 //fetch events by groupId
-export const fetchAllEventByGroupThunk = () => async (dispatch) => {
+export const fetchAllEventThunk = () => async (dispatch) => {
     // const response = await fetch(`/api/groups/${groupId}/events`)
     const response = await fetch(`/api/events`)
     if (!response.ok) {

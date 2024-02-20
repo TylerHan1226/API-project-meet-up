@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
-import { fetchAllEventByGroupThunk } from "../../store/groups";
+import { fetchAllEventThunk } from "../../store/groups";
 import './Groups.css'
 
 
@@ -16,7 +16,7 @@ function GroupItem({ group }) {
     }
 
     useEffect(() => {
-        dispatch(fetchAllEventByGroupThunk());
+        dispatch(fetchAllEventThunk());
     }, [dispatch]);
 
     let isPublic = 'Public'
@@ -27,13 +27,13 @@ function GroupItem({ group }) {
 
     return (
         group.id && (
-            <Link id='group-item-container' to={`/groups/${group.id}`}>
-                {eventList.length !== 0 && <img className='group-image' src={group.previewImage} alt='group preview image' />}
-                <div id='group-detail-container'>
-                    <h2>{group.name}</h2>
-                    <p>{group.city}, {group.state}</p>
-                    <p>{group.about}</p>
-                    {eventList.length !== 0 && <p>{eventList.length} events · {isPublic}</p>}
+            <Link id='item-container' to={`/groups/${group.id}`}>
+                {eventList.length !== 0 && <img className='item-image' src={group.previewImage} alt='group preview image' />}
+                <div id='details-container'>
+                    <h2 className='item-texts'>{group.name}</h2>
+                    <p className='item-texts'>{group.city}, {group.state}</p>
+                    <p className='item-texts'>{group.about}</p>
+                    {eventList.length !== 0 && <p className='item-texts'>{eventList.length} events · {isPublic}</p>}
                 </div>
             </Link>
         )

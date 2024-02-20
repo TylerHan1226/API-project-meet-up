@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroupsThunk, selectGroupsArr } from "../../store/groups";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import GroupItem from './GroupItem'
 import './Groups.css'
@@ -22,7 +23,7 @@ function Groups() {
     return (
         <div id="groupEvent-page-container">
             <div id='groupEvent-link-header'>
-                <h1 id='event-header'>Events</h1>
+                <Link className='un-highlighted-header' to='/events'><h1>Events</h1></Link>
                 <h1 className={groupHeader}>Groups</h1>
             </div>
             <p id="groupEvent-header-text">Groups in Meetup</p>
