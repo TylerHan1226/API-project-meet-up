@@ -9,10 +9,15 @@ function Events() {
 
     const dispatch = useDispatch()
     const events = useSelector(state => state.events.events)
+    const eventDetails = useSelector(state => state.events.eventDetails)
+
+    // if (eventDetails) {
+    //     console.log("eventDetails ==> ", eventDetails)
+    // }
 
     useEffect(() => {
         dispatch(fetchAllEventThunk())
-    }, [dispatch])
+    }, [dispatch, eventDetails])
     
     let eventsArr = []
     if (events) {
@@ -34,8 +39,8 @@ function Events() {
             <p id="groupEvent-header-text">Events in Meetup</p>
 
             <div id='groups-container'>
-                {eventsArr.length !== 0 && Array.isArray(eventsArr) && eventsArr.map(eachEvent => (
-                    <EventItem key={eachEvent.id} event={eachEvent} />
+                {eventsArr && eventsArr.length !== 0 && Array.isArray(eventsArr) && eventsArr.map(eachEvent => (
+                    <EventItem key={eachEvent.id} event={eachEvent} eventDetail={eventDetails[eachEvent.id]} />
                 ))}
             </div>
 

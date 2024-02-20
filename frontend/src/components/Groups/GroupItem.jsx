@@ -5,10 +5,11 @@ import './Groups.css'
 
 function GroupItem({ group }) {
 
-    const events = useSelector(state => state.groups.events)
+    const events = useSelector(state => state.events.events.Events)
     let eventList = []
     if (events) {
-        eventList = events && events.Events.filter(event => event.groupId === group.id);
+        eventList = events.filter(event => event.groupId === group.id);
+        console.log('events ==>', events)
     }
 
     let isPublic = 'Public'

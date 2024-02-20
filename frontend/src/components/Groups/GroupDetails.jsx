@@ -22,10 +22,10 @@ function GroupDetails() {
     }
 
     return (
-        <section id='group-detail-page-container'>
+        <>
 
             {group ? ( // Added null check here
-                <>
+                <section id='group-detail-page-container'>
 
                     <NavLink className='back-button' to={`/groups`}><IoChevronBack /> groups</NavLink>
 
@@ -38,7 +38,7 @@ function GroupDetails() {
                             <button>Join this group</button>
                         </div>
                     </div>
-
+                    <section id='group-detail-background-color'>
                     <div id='group-detail-container'>
                         <div className='detail-section'>
                             <h3 className='detail-title'>Organizer</h3>
@@ -52,13 +52,15 @@ function GroupDetails() {
                             <EventsList groupId={groupId} />
                         </div>
                     </div>
-                </>
+                    </section>
+
+                </section>
 
             ) : (
                 <p>No images available</p> // Render a message if no images
             )}
 
-        </section>
+        </>
     )
 }
 

@@ -16,9 +16,9 @@ export const loadEvents = (events) => ({
     type: LOAD_ALL_EVENTS,
     events
 })
-export const loadEventDetails = (eventDtl) => ({
+export const loadEventDetails = (eventDetail) => ({
     type: LOAD_EVENT_DETAILS,
-    eventDtl
+    eventDetail
 })
 
 /** Thunk Action Creators: */
@@ -30,8 +30,21 @@ export const fetchAllEventThunk = () => async (dispatch) => {
         throw new Error('Failed to fetch events')
     }
     const events = await response.json()
-    console.log('events in groups.js ==>', events)
+    // console.log('events in groups.js ==>', events)
     dispatch(loadEvents(events))
+
+    const eventDetails = {}
+    await Promise.all(events.Events.map(async (event) => {
+        const everyResponse = await fetch(`/api/events/${event.id}`)
+        if (!everyResponse.ok) {
+            throw new Error(`Fail to fetch event details`)
+        }
+        const eventDetail = await everyResponse.json()
+        eventDetails[event.id] = eventDetail
+        dispatch(loadEventDetails(eventDetail))
+    }))
+    // console.log("{events, eventDetails} ==>", {events, eventDetails})
+    return {events, eventDetails}
 }
 //fetch events by groupId
 export const fetchEventsByGroupThunk = (groupId) => async (dispatch) => {
@@ -44,17 +57,18 @@ export const fetchEventsByGroupThunk = (groupId) => async (dispatch) => {
     // console.log('events in events.js ==>', events)
     dispatch(loadEventsByGroup(events))
     // dispatch(loadEventsByGroup(response))
+    const eventDetails = {}
+    await Promise.all(events.Events.map(async (event) => {
+        const everyResponse = await fetch(`/api/events/${event.id}`)
+        if (!everyResponse.ok) {
+            throw new Error(`Fail to fetch event details`)
+        }
+        const eventDetail = await everyResponse.json()
+        eventDetails[event.id] = eventDetail
+        dispatch(loadEventDetails(eventDetail))
+    }))
+    return {events, eventDetails}
 }
-//fetch event details by its ID
-export const fetchEventDtlByIdThunk = (eventId) => async (dispatch) => {
-    const response = await fetch (`/api/groups/${eventId}`)
-    if (!response.ok) {
-        throw new Error('Failed to fetch event details')
-    }
-    const eventDtl = await response.json()
-    console.log('response in events.js ==>', response)
-    dispatch(loadEventDetails(eventDtl))
-} 
 
 
 /** Selectors: */
@@ -66,7 +80,11 @@ export const selectEventsArr = createSelector(
 )
 
 /** Reducer: */
-const eventsReducer = (state ={}, action) => {
+const initialState = {
+    events: [],
+    eventDetails: {},
+};
+const eventsReducer = (state =initialState, action) => {
     switch (action.type) {
         case LOAD_EVENTS: {
             return {
@@ -83,8 +101,11 @@ const eventsReducer = (state ={}, action) => {
         case LOAD_EVENT_DETAILS: {
             return {
                 ...state,
-                eventDetails: action.eventDtl
-            }
+                eventDetails: {
+                    ...state.eventDetails,
+                    [action.eventDetail.id]: action.eventDetail,
+                },
+            };
         }
         default:
             return state

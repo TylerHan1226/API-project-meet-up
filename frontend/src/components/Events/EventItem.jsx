@@ -1,12 +1,10 @@
 
 import '../Groups/Groups.css'
-import EventAbout from './EventAbout';
 
-
-function EventItem({ event }) {
+function EventItem({ event, eventDetail }) {
     
     return (
-        event.id && (
+        event.id && eventDetail && (
             <div id='event-item-container'>
                 <div id='event-image-detail-container'>
                     <img className='item-image' src={event.previewImage} alt='group preview image' />
@@ -14,10 +12,9 @@ function EventItem({ event }) {
                         <h2 className='item-texts'>{event.startDate}</h2>
                         <p className='item-texts'>{event.name}</p>
                         <p className='item-texts'>{event.Venue.city}, {event.Venue.state}</p>
-                        {/* need to get description from eventDetails */}
                     </div>
                 </div>
-                <EventAbout eventId={event.id} />
+                <p>{eventDetail.description}</p>
             </div>
         )
     );

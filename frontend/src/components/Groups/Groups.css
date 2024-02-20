@@ -1,8 +1,12 @@
 #groupEvent-page-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin: 32px 16px 0px 16px;
+}
+
+#group-detail-container {
+    width: 80%;
+    align-self: center;
 }
 
 #groupEvent-link-header {
@@ -48,8 +52,14 @@
 
 #group-detail-page-container {
     display: flex;
+    flex-direction: column
+}
+
+#group-detail-background-color {
+    display: flex;
     flex-direction: column;
-    margin-left: 16px;
+    background-color: rgba(0, 11, 163, 0.1);
+    margin-top: 32px;
 }
 
 .item-image {
@@ -69,18 +79,18 @@
     color: black;
     border-bottom: solid 2px lightgrey;
     margin-bottom: 16px;
-    width: 60%;
 }
 
 #event-image-detail-container {
     display: flex;
     flex-direction: row;
-    margin-bottom: 16px;
 }
 
 .img-detail-container {
     display: flex;
     flex-direction: row;
+    width: 80%;
+    align-self: center;
 }
 
 .back-button {
@@ -94,4 +104,33 @@
 
 #event-about-text {
     margin-bottom: 16px;
+}
+
+#event-list-item-container {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: black;
+    border: solid 2px lightgrey;
+    margin-bottom: 16px;
+    width: 80%
+}
+
+.event-list-item-image {
+    width: 60%;
+    margin: 16px 16px 0px 16px
+}
+
+#event-list-image-detail-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#event-list-details-container {
+    margin: 0px 16px 0px auto
+}
+
+.event-list-item-texts {
+    font-size: 16px;
+    margin-left: 16px;
 }
