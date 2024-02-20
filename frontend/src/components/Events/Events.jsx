@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchAllEventThunk } from "../../store/groups";
+import { fetchAllEventThunk } from "../../store/events";
 import { Link } from "react-router-dom";
 import '../Groups/Groups.css'
 import EventItem from "./EventItem";
@@ -8,7 +8,7 @@ import EventItem from "./EventItem";
 function Events() {
 
     const dispatch = useDispatch()
-    const events = useSelector(state => state.groups.events)
+    const events = useSelector(state => state.events.events)
 
     useEffect(() => {
         dispatch(fetchAllEventThunk())
@@ -18,12 +18,7 @@ function Events() {
     if (events) {
         eventsArr = events.Events
     }
-    console.log('eventsArr ==>', eventsArr)
-
-    // let eventHeader = null
-    // if (events.length !== 0) {
-    //     eventHeader = 'highlighted'
-    // }
+    // console.log('eventsArr ==>', eventsArr)
 
     let eventHeader = null
     if (events) {
@@ -39,7 +34,7 @@ function Events() {
             <p id="groupEvent-header-text">Events in Meetup</p>
 
             <div id='groups-container'>
-                {eventsArr && Array.isArray(eventsArr) && eventsArr.map(eachEvent => (
+                {eventsArr.length !== 0 && Array.isArray(eventsArr) && eventsArr.map(eachEvent => (
                     <EventItem key={eachEvent.id} event={eachEvent} />
                 ))}
             </div>

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { fetchGroupDetailThunk } from "../../store/groups";
 import { IoChevronBack } from "react-icons/io5";
 
-import Events from '../Events/Events'
+import EventsList from '../Events/EventsList'
 
 function GroupDetails() {
 
@@ -15,8 +15,6 @@ function GroupDetails() {
     useEffect(() => {
         dispatch(fetchGroupDetailThunk(groupId))
     }, [dispatch, groupId])
-
-    // console.log("group ===>", group)
 
     let previewImgUrl = ''
     if (group) {
@@ -51,8 +49,7 @@ function GroupDetails() {
                             <h5 className='detail-text'>{group.about}</h5>
                         </div>
                         <div className='detail-section'>
-                            <h3 className='detail-title'>Upcoming Events</h3>
-                            <Events groupId={groupId} />
+                            <EventsList groupId={groupId} />
                         </div>
                     </div>
                 </>

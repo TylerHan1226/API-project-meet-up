@@ -14,7 +14,7 @@ function Groups() {
     useEffect(() => {
         dispatch(fetchGroupsThunk())
     }, [dispatch])
-
+    //chain 
     let groupHeader = null
     if (groups) {
         groupHeader = 'highlighted'

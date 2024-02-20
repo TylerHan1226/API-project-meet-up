@@ -1,11 +1,12 @@
 //imports
 import {createSelector} from 'reselect'
+import {fetchAllEventThunk} from '../store/events' 
 
 
 /** Action Type Constants: */
 export const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 export const LOAD_GROUP_DETAIL = 'groups/LOAD_GROUP_DETAIL'
-export const LOAD_EVENTS = '/groups/LOAD_EVENTS'
+
 
 /**  Action Creators: */
 export const loadGroups = (groups) => ({
@@ -16,10 +17,7 @@ export const loadGroupDetails = (group) => ({
     type: LOAD_GROUP_DETAIL,
     group
 })
-export const loadEvents = (events) => ({
-    type: LOAD_EVENTS,
-    events
-})
+
 
 
 /** Thunk Action Creators: */
@@ -44,17 +42,7 @@ export const fetchGroupDetailThunk = (groupId) => async (dispatch) => {
     // console.log('group in groups.js ==>', group)
     dispatch(loadGroupDetails(group))
 }
-//fetch events by groupId
-export const fetchAllEventThunk = () => async (dispatch) => {
-    // const response = await fetch(`/api/groups/${groupId}/events`)
-    const response = await fetch(`/api/events`)
-    if (!response.ok) {
-        throw new Error('Failed to fetch events')
-    }
-    const events = await response.json()
-    // console.log('events in groups.js ==>', events)
-    dispatch(loadEvents(events))
-}
+
 
 
 /** Selectors: */
@@ -79,12 +67,6 @@ const groupsReducer = (state ={}, action) => {
             const groupState = {}
             groupState.Group = action.group
             return groupState
-        }
-        case LOAD_EVENTS: {
-            return {
-                ...state,
-                events: action.events // Assuming `events` is the key where events should be stored in the state
-            };
         }
         default:
             return state
