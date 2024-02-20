@@ -5,7 +5,7 @@ import { fetchEventsByGroupThunk } from "../../store/events";
 // import GroupItem from './GroupItem'
 // import './Groups.css'
 
-function Events({groupId}) {
+function Events({ groupId }) {
 
     const dispatch = useDispatch()
     const events = useSelector(selectEventsArr)
@@ -22,11 +22,11 @@ function Events({groupId}) {
 
 
     return (
-        <div>
-            <h1>Events component!</h1>
-            
-        </div>
-
+        eventsArr.length !== 0 && (
+            <div id='events-container'>
+                <h1>{eventsArr[0].name}</h1>
+            </div>
+        )
     )
 }
 
