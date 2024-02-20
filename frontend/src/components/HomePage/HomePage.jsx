@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useModal } from '../../context/Modal';
 
 import './HomePage.css'

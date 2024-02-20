@@ -47,7 +47,7 @@ function GroupDetails() {
                             <h5 className='detail-text'>{group.Organizer.firstName} {group.Organizer.lastName}</h5>
                         </div>
                         <div className='detail-section'>
-                            <h3 className='detail-title'>What we're about</h3>
+                            <h3 className='detail-title'>What we are about</h3>
                             <h5 className='detail-text'>{group.about}</h5>
                         </div>
                         <div className='detail-section'>
