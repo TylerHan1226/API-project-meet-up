@@ -16,12 +16,14 @@
     margin-right: 16px;
     color: grey;
     text-decoration: none;
+    margin-top: 8px;
 }
 
 .highlighted {
     color: red;
     text-decoration: underline;
     margin-right: 16px;
+    font-size: 36px;
 }
 
 #groupEvent-header-text {

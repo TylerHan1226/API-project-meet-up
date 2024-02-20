@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from 'react';
-import { fetchAllEventThunk } from "../../store/groups";
+import { useSelector } from "react-redux";
 import './Groups.css'
 
 
 function GroupItem({ group }) {
-    const dispatch = useDispatch()
-    // console.log('group.id ==>', group.id)
 
     const events = useSelector(state => state.groups.events)
     let eventList = []
@@ -15,12 +11,7 @@ function GroupItem({ group }) {
         eventList = events && events.Events.filter(event => event.groupId === group.id);
     }
 
-    useEffect(() => {
-        dispatch(fetchAllEventThunk());
-    }, [dispatch]);
-
     let isPublic = 'Public'
-    console.log('group.private ==>', group.private)
     if (group.private == true) {
         isPublic = 'Private'
     }

@@ -30,6 +30,8 @@ export const fetchGroupsThunk = () => async (dispatch) => {
         throw new Error('Failed to fetch groups')
     }
     const groups = await response.json()
+    //dispatch thunk for each of the group
+    dispatch(fetchAllEventThunk())
     dispatch(loadGroups(groups))
 }
 //fetch group by groupId
