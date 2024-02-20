@@ -17,7 +17,7 @@ function Events() {
 
     useEffect(() => {
         dispatch(fetchAllEventThunk())
-    }, [dispatch, eventDetails])
+    }, [dispatch])
     
     let eventsArr = []
     if (events) {

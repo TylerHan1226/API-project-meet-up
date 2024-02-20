@@ -111,7 +111,7 @@
     flex-direction: column;
     text-decoration: none;
     color: black;
-    border: solid 2px lightgrey;
+    border: solid 1.5px grey;
     margin-bottom: 16px;
     width: 80%
 }
