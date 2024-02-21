@@ -5,8 +5,6 @@ import { useEffect } from "react"
 
 function EventsList({ groupId }) {
 
-    console.log('groupId ===>', groupId)
-
     const dispatch = useDispatch()
     const events = useSelector(selectEventsArr)
     const eventArr = events[0].Events
@@ -22,7 +20,6 @@ function EventsList({ groupId }) {
     if (Array.isArray(eventArr)) {
         eventArr.forEach(event => {
             const eventStartDate = new Date(event.startDate)
-            console.log('event.startDate', event.startDate)
             if (now < eventStartDate) {
                 upcomingEventsArr.push(event)
             } else {
@@ -30,13 +27,6 @@ function EventsList({ groupId }) {
             }
         })
     }
-    if (eventDetails) {
-        console.log('eventDetails[1] ==>', eventDetails[1])
-        if (eventDetails[1]) {
-            console.log('event description ==>', eventDetails[1].description)
-        }
-    }
-
 
     return (
         Array.isArray(eventArr) && eventDetails && (
@@ -50,9 +40,11 @@ function EventsList({ groupId }) {
                             <div id='event-list-image-detail-container'>
                                 <img className='event-list-item-image' src={eachEvent.previewImage} alt='group preview image' />
                                 <div id='event-list-details-container'>
-                                    <h4 className='event-list-item-texts'>{eachEvent.startDate}</h4>
-                                    <p className='event-list-item-texts'>{eachEvent.name}</p>
-                                    <p className='event-list-item-texts'>{eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
+                                    <h4 className='event-list-item-texts'>{eachEvent.startDate} - {eachEvent.endDate}</h4>
+                                    <h4 className='event-list-item-texts'>{eachEvent.name}</h4>
+                                    <p className='event-list-item-texts'>Location: {eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
+                                    <p className='event-list-item-texts'>Type: {eachEvent.type}</p>
+                                    <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p>
                                 </div>
                             </div>
                             {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p> }
@@ -68,9 +60,11 @@ function EventsList({ groupId }) {
                             <div id='event-list-image-detail-container'>
                                 <img className='event-list-item-image' src={eachEvent.previewImage} alt='group preview image' />
                                 <div id='event-list-details-container'>
-                                    <h4 className='event-list-item-texts'>{eachEvent.startDate}</h4>
-                                    <p className='event-list-item-texts'>{eachEvent.name}</p>
-                                    <p className='event-list-item-texts'>{eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
+                                <h4 className='event-list-item-texts'>{eachEvent.startDate} - {eachEvent.endDate}</h4>
+                                    <h4 className='event-list-item-texts'>{eachEvent.name}</h4>
+                                    <p className='event-list-item-texts'>Location: {eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
+                                    <p className='event-list-item-texts'>Type: {eachEvent.type}</p>
+                                    <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p>
                                 </div>
                             </div>
                             {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p> }

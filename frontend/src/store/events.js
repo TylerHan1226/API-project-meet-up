@@ -69,6 +69,15 @@ export const fetchEventsByGroupThunk = (groupId) => async (dispatch) => {
     }))
     return {events, eventDetails}
 }
+//fetch event by id
+export const fetchEventsByIdThunk = (eventId) => async (dispatch) => {
+    const response = await fetch (`/api/events/${eventId}`)
+    if (!response.ok) {
+        throw new Error('Failed to fetch events')
+    }
+    const event = await response.json()
+    dispatch(loadEventDetails(event))
+}
 
 
 /** Selectors: */

@@ -11,10 +11,6 @@ function Events() {
     const events = useSelector(state => state.events.events)
     const eventDetails = useSelector(state => state.events.eventDetails)
 
-    // if (eventDetails) {
-    //     console.log("eventDetails ==> ", eventDetails)
-    // }
-
     useEffect(() => {
         dispatch(fetchAllEventThunk())
     }, [dispatch])
@@ -23,7 +19,6 @@ function Events() {
     if (events) {
         eventsArr = events.Events
     }
-    // console.log('eventsArr ==>', eventsArr)
 
     let eventHeader = null
     if (events) {
@@ -47,10 +42,6 @@ function Events() {
         </div>
 
     )
-
-    // return (
-    //     <h1>Event Page!</h1>
-    // )
 }
 
 export default Events;

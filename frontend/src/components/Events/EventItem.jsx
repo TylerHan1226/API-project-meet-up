@@ -1,11 +1,11 @@
-
+import { Link } from 'react-router-dom'
 import '../Groups/Groups.css'
 
 function EventItem({ event, eventDetail }) {
     
     return (
         event.id && eventDetail && (
-            <div id='event-item-container'>
+            <Link id='event-item-container' to={`/events/${event.id}`}>
                 <div id='event-image-detail-container'>
                     <img className='item-image' src={event.previewImage} alt='group preview image' />
                     <div id='details-container'>
@@ -15,7 +15,7 @@ function EventItem({ event, eventDetail }) {
                     </div>
                 </div>
                 <p>{eventDetail.description}</p>
-            </div>
+            </Link>
         )
     );
 }
