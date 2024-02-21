@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchGroupDetailThunk } from "../../store/groups";
-import { IoChevronBack } from "react-icons/io5";
 
+import { IoChevronBack } from "react-icons/io5";
+import { FaPersonRunning } from "react-icons/fa6";
 import EventsList from '../Events/EventsList'
 
 function GroupDetails() {
@@ -57,7 +58,7 @@ function GroupDetails() {
                 </section>
 
             ) : (
-                <p>No images available</p> // Render a message if no images
+                <h2><FaPersonRunning /> loading ...</h2> // Render a message if no images
             )}
 
         </>

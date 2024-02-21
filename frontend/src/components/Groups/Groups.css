@@ -1,7 +1,14 @@
 #groupEvent-page-container{
     display: flex;
     flex-direction: column;
-    margin: 32px 16px 0px 16px;
+    margin: 32px auto 0;
+    width: 68%;
+}
+
+#group-detail-page-container {
+    display: flex;
+    flex-direction: column;
+    margin: 32px auto 0;
 }
 
 #group-detail-container {
@@ -48,11 +55,6 @@
     margin-bottom: 16px;
     padding-bottom: 16px;
     border-bottom: solid 2px lightgrey;
-}
-
-#group-detail-page-container {
-    display: flex;
-    flex-direction: column
 }
 
 #group-detail-background-color {

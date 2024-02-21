@@ -6,6 +6,7 @@ import {createSelector} from 'reselect'
 export const LOAD_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_ALL_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_EVENT_DETAILS = '/events/LOAD_EVENT_DETAILS'
+export const LOAD_GROUP_DETAILS = '/events/LOAD_GROUP_DETAILS'
 
 /**  Action Creators: */
 export const loadEventsByGroup = (events) => ({
@@ -19,6 +20,10 @@ export const loadEvents = (events) => ({
 export const loadEventDetails = (eventDetail) => ({
     type: LOAD_EVENT_DETAILS,
     eventDetail
+})
+export const loadGroupDetails = (groupDetail) => ({
+    type: LOAD_GROUP_DETAILS,
+    groupDetail
 })
 
 /** Thunk Action Creators: */
@@ -52,11 +57,10 @@ export const fetchEventsByGroupThunk = (groupId) => async (dispatch) => {
     if (!response.ok) {
         throw new Error('Failed to fetch events')
     }
-    // console.log('response ==>', response)
     const events = await response.json()
-    // console.log('events in events.js ==>', events)
     dispatch(loadEventsByGroup(events))
-    // dispatch(loadEventsByGroup(response))
+
+    //chain
     const eventDetails = {}
     await Promise.all(events.Events.map(async (event) => {
         const everyResponse = await fetch(`/api/events/${event.id}`)
@@ -77,6 +81,11 @@ export const fetchEventsByIdThunk = (eventId) => async (dispatch) => {
     }
     const event = await response.json()
     dispatch(loadEventDetails(event))
+
+    const groupDetail = {}
+    const groupResponse = await fetch(`/api/groups/${event.Group.id}`)
+    groupDetail[event.id] = await groupResponse.json()
+    dispatch(loadGroupDetails(groupDetail))
 }
 
 
@@ -115,6 +124,12 @@ const eventsReducer = (state =initialState, action) => {
                     [action.eventDetail.id]: action.eventDetail,
                 },
             };
+        }
+        case LOAD_GROUP_DETAILS: {
+            return {
+                ...state,
+                groupDetails: action.groupDetail
+            }
         }
         default:
             return state
