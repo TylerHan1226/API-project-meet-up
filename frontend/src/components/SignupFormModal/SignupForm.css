@@ -1,0 +1,18 @@
+
+
+#popup-form-container {
+    padding: 8px;
+}
+
+.popup-form-title {
+    margin: 4px 4px 4px 4px;
+}
+
+.popup-sign-up-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin: 4px 4px 4px 4px;
+}

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { fetchEventsByIdThunk } from "../../store/events"
+import { fetchEventByIdThunk } from "../../store/events"
 import { IoChevronBack } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 
@@ -20,26 +20,24 @@ function EventDetails() {
     const event = useSelector(state => state.events.eventDetails)[eventId]
     const group = useSelector(state => state.events.groupDetails)
 
+    useEffect(() => {
+        dispatch(fetchEventByIdThunk(eventId))
+    }, [dispatch])
+
     let groupImgUrl = ''
+    let isPublic = 'Public'
+    let previewImgUrl = ''
     if (event && group) {
         console.log('event ===>', event)
+        previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
+        if (event.private == true) {
+            isPublic = 'Private'
+        }
         if (group[eventId]) {
             const groupImgUrlArr = group[eventId].GroupImages
             groupImgUrl = groupImgUrlArr.filter((img) => {
                 return img.preview === true
             })[0].url
-        }
-    }
-    useEffect(() => {
-        dispatch(fetchEventsByIdThunk(eventId))
-    }, [dispatch])
-
-    let previewImgUrl = ''
-    let isPublic = 'Public'
-    if (event) {
-        previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
-        if (event.private == true) {
-            isPublic = 'Private'
         }
     }
 

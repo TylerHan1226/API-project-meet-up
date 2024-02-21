@@ -11,9 +11,9 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  let buttonActive = !(credential.length <4 || password.length < 6)
+  let buttonActive = !(credential.length < 4 || password.length < 6)
 
-  console.log("errors ==>", errors)
+  // console.log("errors ==>", errors)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,12 +22,21 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        console.log("data ==> ", data)
+        // console.log("data ==> ", data)
         if (data && data.message) {
           setErrors(data);
         }
       });
   };
+
+  // const demoCredential = 'user1@user.io'
+  // const demoPassword = 'password'
+  const handleDemoLogin = (e) => {
+    setCredential('user1@user.io')
+    setPassword('password')
+  }
+
+
 
   return (
     <>
@@ -53,7 +62,7 @@ function LoginFormModal() {
         </label>
         {errors.message && <p className='error-message'>* {errors.message}</p>}
         <button type="submit" disabled={!buttonActive}>Log In</button>
-        <button>Log in as Demo User</button>
+        <button type="submit" onClick={handleDemoLogin}>Log in as Demo User</button>
       </form>
     </>
   );

@@ -15,6 +15,15 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  let buttonActive = !(
+    email.length < 1 ||
+    username.length < 4 ||
+    firstName.length < 1 ||
+    lastName.length < 1 ||
+    password.length < 6 ||
+    confirmPassword.length < 6
+    )
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -42,11 +51,11 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+    <div id='popup-form-container'>
+      <h1 className='popup-form-title'>Sign Up</h1>
+      <form className='popup-sign-up-form' onSubmit={handleSubmit}>
+        <label className='label'>
+          Email 
           <input
             type="text"
             value={email}
@@ -54,9 +63,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+        {errors.email && <p className='error-message'>* {errors.email}</p>}
+        <label className='label'>
+          Username 
           <input
             type="text"
             value={username}
@@ -64,9 +73,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
+        {errors.username && <p className='error-message'>* {errors.username}</p>}
+        <label className='label'>
+          First Name 
           <input
             type="text"
             value={firstName}
@@ -74,9 +83,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
+        {errors.firstName && <p className='error-message'>* {errors.firstName}</p>}
+        <label className='label'>
+          Last Name 
           <input
             type="text"
             value={lastName}
@@ -84,9 +93,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Password
+        {errors.lastName && <p className='error-message'>* {errors.lastName}</p>}
+        <label className='label'>
+          Password 
           <input
             type="password"
             value={password}
@@ -94,9 +103,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+        {errors.password && <p className='error-message'>* {errors.password}</p>}
+        <label className='label'>
+          Confirm Password 
           <input
             type="password"
             value={confirmPassword}
@@ -104,10 +113,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <p className='error-message'>* {errors.confirmPassword}</p>}
+        <button type="submit" disabled={!buttonActive}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
