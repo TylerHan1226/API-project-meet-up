@@ -84,6 +84,7 @@ function GroupDetails() {
                                 <h5 className='detail-text'>{group.about}</h5>
                             </div>
                             <div className='detail-section'>
+                                {events && <h3>Events ({events.length})</h3>}
                                 <EventsList groupId={groupId} />
                             </div>
                         </div>

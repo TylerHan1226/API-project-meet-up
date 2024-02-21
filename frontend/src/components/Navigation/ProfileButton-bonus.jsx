@@ -54,7 +54,9 @@ function ProfileButton({ user }) {
             <li className='profile-details'>{user.email}</li>
             <li className='profile-details'>
               <Link to='/groups'>View groups</Link>
-
+            </li>
+            <li className='profile-details'>
+              <Link to='/events'>View events</Link>
             </li>
             <li className='profile-details'>
               <button onClick={logout}>Log Out</button>

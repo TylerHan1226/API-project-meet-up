@@ -9,11 +9,11 @@ function EventItem({ event, eventDetail }) {
                 <div id='event-image-detail-container'>
                     <img className='item-image' src={event.previewImage} alt='group preview image' />
                     <div id='details-container'>
-                        <h4 className='event-list-item-texts'>{event.startDate} - {event.endDate}</h4>
+                    <h5 className='event-list-item-texts'>{event.startDate.split(' ')[0]} · {event.startDate.split(' ')[1]}</h5>
                         <h4 className='event-list-item-texts'>{event.name}</h4>
                         <p className='event-list-item-texts'>Location: {event.Venue.city}, {event.Venue.state}</p>
                         <p className='event-list-item-texts'>Type: {event.type}</p>
-                        <p className='event-list-item-texts'>Number of Attending: {event.numAttending}</p>
+                        {/* <p className='event-list-item-texts'>Number of Attending: {event.numAttending}</p> */}
                     </div>
                 </div>
                 <p>{eventDetail.description}</p>

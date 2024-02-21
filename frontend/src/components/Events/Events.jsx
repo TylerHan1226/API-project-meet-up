@@ -14,10 +14,22 @@ function Events() {
     useEffect(() => {
         dispatch(fetchAllEventThunk())
     }, [dispatch])
-    
+
     let eventsArr = []
     if (events) {
         eventsArr = events.Events
+        // Sort events by startDate
+        if (eventsArr) {
+            eventsArr.sort((a, b) => {
+                const eventA = new Date(a.startDate);
+                const eventB = new Date(b.startDate);
+                const now = new Date();
+                // Compare start dates
+                if (eventA > now && eventB <= now) return -1; // a is upcoming, b is past
+                if (eventA <= now && eventB > now) return 1; // b is upcoming, a is past
+                return eventA - eventB
+        });
+        }
     }
 
     let eventHeader = null

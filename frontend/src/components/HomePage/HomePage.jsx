@@ -39,7 +39,7 @@ function HomePage() {
                     </div>
                     <div className='homepage-actions'>
                         <MdEventAvailable className='homepage-action-icons' />
-                        <h4>Find an event</h4>
+                        <NavLink to='/events'>Find an event</NavLink>
                     </div>
                     <div className='homepage-actions'>
                         <MdGroups2 className='homepage-action-icons' />

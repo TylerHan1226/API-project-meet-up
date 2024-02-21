@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { fetchEventsByGroupThunk, selectEventsArr } from "../../store/events"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 
 
 function EventsList({ groupId }) {
@@ -26,33 +27,37 @@ function EventsList({ groupId }) {
                 pastEventsArr.push(event)
             }
         })
+        eventArr.sort((a, b) => {
+            // Compare start dates
+            return new Date(a.startDate) - new Date(b.startDate);
+        });
     }
 
     return (
         Array.isArray(eventArr) && eventDetails && (
             <>
                 <div>
-                    <h3>Upcoming Events ({upcomingEventsArr.length})</h3>
+                    <h4>Upcoming Events ({upcomingEventsArr.length})</h4>
                 </div>
                 <div>
                     {upcomingEventsArr.length !== 0 && upcomingEventsArr.map((eachEvent) => (
-                        <div key={eachEvent.id} id='event-list-item-container'>
+                        <Link key={eachEvent.id} id='event-list-item-container' to={`/events/${eachEvent.id}`}>
                             <div id='event-list-image-detail-container'>
                                 <img className='event-list-item-image' src={eachEvent.previewImage} alt='group preview image' />
                                 <div id='event-list-details-container'>
-                                    <h4 className='event-list-item-texts'>{eachEvent.startDate} - {eachEvent.endDate}</h4>
+                                    <h5 className='event-list-item-texts'>{eachEvent.startDate.split(' ')[0]} · {eachEvent.startDate.split(' ')[1]}</h5>
                                     <h4 className='event-list-item-texts'>{eachEvent.name}</h4>
                                     <p className='event-list-item-texts'>Location: {eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
                                     <p className='event-list-item-texts'>Type: {eachEvent.type}</p>
-                                    <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p>
+                                    {/* <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p> */}
                                 </div>
                             </div>
-                            {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p> }
-                        </div>
+                            {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p>}
+                        </Link>
                     ))}
                 </div>
                 <div>
-                    <h3>Past Events ({pastEventsArr.length})</h3>
+                    <h4>Past Events ({pastEventsArr.length})</h4>
                 </div>
                 <div>
                     {pastEventsArr.length !== 0 && pastEventsArr.map((eachEvent) => (
@@ -60,14 +65,14 @@ function EventsList({ groupId }) {
                             <div id='event-list-image-detail-container'>
                                 <img className='event-list-item-image' src={eachEvent.previewImage} alt='group preview image' />
                                 <div id='event-list-details-container'>
-                                <h4 className='event-list-item-texts'>{eachEvent.startDate} - {eachEvent.endDate}</h4>
+                                <h5 className='event-list-item-texts'>{eachEvent.startDate.split(' ')[0]} · {eachEvent.startDate.split(' ')[1]}</h5>
                                     <h4 className='event-list-item-texts'>{eachEvent.name}</h4>
                                     <p className='event-list-item-texts'>Location: {eachEvent.Venue.city}, {eachEvent.Venue.state}</p>
                                     <p className='event-list-item-texts'>Type: {eachEvent.type}</p>
-                                    <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p>
+                                    {/* <p className='event-list-item-texts'>Number of Attending: {eachEvent.numAttending}</p> */}
                                 </div>
                             </div>
-                            {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p> }
+                            {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p>}
                         </div>
                     ))}
                 </div>
