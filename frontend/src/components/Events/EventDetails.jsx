@@ -19,27 +19,45 @@ function EventDetails() {
 
     const event = useSelector(state => state.events.eventDetails)[eventId]
     const group = useSelector(state => state.events.groupDetails)
+    const currentUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(fetchEventByIdThunk(eventId))
-    }, [dispatch])
+    }, [dispatch, eventId])
 
-    let groupImgUrl = ''
-    let isPublic = 'Public'
-    let previewImgUrl = ''
-    if (event && group) {
-        console.log('event ===>', event)
-        previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
-        if (event.private == true) {
-            isPublic = 'Private'
-        }
-        if (group[eventId]) {
-            const groupImgUrlArr = group[eventId].GroupImages
-            groupImgUrl = groupImgUrlArr.filter((img) => {
-                return img.preview === true
-            })[0].url
-        }
+    if (!event || !group || !eventId) {
+        return (
+            <h2><FaPersonRunning /> loading ...</h2>
+        )
     }
+
+    //organizer name
+    // const groupDetail = group[eventId]
+    const groupEvent = group[eventId];
+    const organizerFirstName = groupEvent && groupEvent.Organizer ? groupEvent.Organizer.firstName : '';
+    const organizerLastName = groupEvent && groupEvent.Organizer ? groupEvent.Organizer.lastName : '';
+    //preview img
+    const previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
+    //isPublic?
+    let isPublic = 'Public'
+    if (event.private == true) {
+        isPublic = 'Private'
+    }
+    //get group img
+    const groupImgUrlArr = groupEvent && groupEvent.GroupImages ? groupEvent.GroupImages : [];
+    const groupImgUrl = groupImgUrlArr.length > 0 ? groupImgUrlArr.filter((img) => img.preview === true)[0].url : '';
+    
+    //event start/end date
+    const eventStartDate = event.startDate.split(' ')[0]
+    const eventStartTime = event.startDate.split(' ')[1]
+    const eventEndDate = event.endDate.split(' ')[0]
+    const eventEndTime = event.endDate.split(' ')[1]
+
+    console.log('event ==>', event)
+    console.log('group ==>', group)
+    console.log('currentUser ==>', currentUser)
+    let isCreator = false
+    // if ()
 
     return (
         <>
@@ -48,40 +66,52 @@ function EventDetails() {
                 <section id='event-detail-page-container'>
                     <NavLink className='back-button' to={`/events`}><IoChevronBack /> events</NavLink>
 
-                    <div id="img-detail-container">
-                        <img id='group-preview-img' src={previewImgUrl} alt='event preview img' />
-
-                        <div id="event-basic-detail-container">
-
-                            <div id='event-group-info-container'>
-                                <img className="event-group-img" src={groupImgUrl} alt='group image' />
-
-                                <div id='event-group-detail-container'>
-                                    <h3>{event.Group.name}</h3>
-                                    <p>{isPublic}</p>
-                                </div>
-
-                            </div>
-
-                            <div id='event-basic-info-container'>
-                                <div className="event-detail-icons">
-                                    <WiTime4 className="event-detail-icon" />
-                                    <TbPigMoney className="event-detail-icon" />
-                                    <IoLocationOutline className="event-detail-icon" />
-                                </div>
-                                <div className="event-detail-texts">
-                                    <div className="start-end-date">
-                                        <p>START   {event.startDate}</p>
-                                        <p>END   {event.endDate}</p>
-                                    </div>
-                                    <p className="event-price">{event.price} $</p>
-                                    <p className="event-type">{event.type}</p>
-                                </div>
-                            </div>
-
+                    <section id='event-detail-container'>
+                        <div className="event-detail-header-container">
+                            <h1>{event.name}</h1>
+                            <p>Hosted by: {organizerFirstName} {organizerLastName}</p>
                         </div>
-                    </div>
 
+                        <section id='event-detail-page-background'>
+
+                            <div id="previewImg-and-detail-container">
+                                <img className='preview-img' src={previewImgUrl} alt='event preview img' />
+                                <div id="event-basic-detail-container">
+                                    <div id='event-group-info-container'>
+                                        <img className="event-group-img" src={groupImgUrl} alt='group image' />
+                                        <div id='event-group-detail-container'>
+                                            <h3>{event.Group.name}</h3>
+                                            <p>{isPublic}</p>
+                                        </div>
+                                    </div>
+                                    <div id='event-basic-info-container'>
+                                        <div className="event-detail-icons">
+                                            <WiTime4 className="event-detail-icon" />
+                                            <TbPigMoney className="event-detail-icon" />
+                                            <IoLocationOutline className="event-detail-icon" />
+                                        </div>
+                                        <div className="event-detail-texts">
+                                            <p className="event-box-texts">Start {eventStartDate} · {eventStartTime}</p>
+                                            <p className="event-box-texts">End {eventEndDate} · {eventEndTime}</p>
+                                            <p className="event-box-texts">{event.price} $</p>
+                                            <p className="event-box-texts">{event.type}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="event-action-buttons-container">
+                                <button className="event-action-button" >Update</button>
+                                <button className="event-action-button" >Delete</button>
+                            </div>
+
+                            <div className="event-description-container">
+                                <h3>Description</h3>
+                                <p>{event.description}</p>
+                            </div>
+
+                        </section>
+                    </section>
                 </section>
             ) : (
                 <h2><FaPersonRunning /> Loading ...</h2> // Render a message if no images

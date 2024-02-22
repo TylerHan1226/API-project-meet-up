@@ -70,7 +70,7 @@ function GroupDetails() {
                     <NavLink className='back-button' to={`/groups`}><IoChevronBack /> groups</NavLink>
 
                     <div className="img-detail-container">
-                        <img id='group-preview-img' src={previewImgUrl} alt='group preview img' />
+                        <img className='preview-img' src={previewImgUrl} alt='group preview img' />
                         <div className="group-details">
                             <h2>{group.name}</h2>
                             <p>{group.city}, {group.state}</p>
