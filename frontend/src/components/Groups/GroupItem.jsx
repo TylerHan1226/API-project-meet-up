@@ -20,7 +20,7 @@ function GroupItem({ group }) {
     return (
         group.id && (
             <Link id='item-container' to={`/groups/${group.id}`}>
-                <img className='item-image' src={group.previewImage} alt='group preview image' />
+                {group.previewImage && <img className='item-image' src={group.previewImage} alt='group preview image (new image feature coming soon!)' />}
                 <div id='details-container'>
                     <h2 className='item-texts'>{group.name}</h2>
                     <p className='item-texts'>{group.city}, {group.state}</p>

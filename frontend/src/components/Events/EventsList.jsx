@@ -61,7 +61,7 @@ function EventsList({ groupId }) {
                 </div>
                 <div>
                     {pastEventsArr.length !== 0 && pastEventsArr.map((eachEvent) => (
-                        <div key={eachEvent.id} id='event-list-item-container'>
+                        <Link key={eachEvent.id} id='event-list-item-container' to={`/events/${eachEvent.id}`}>
                             <div id='event-list-image-detail-container'>
                                 <img className='event-list-item-image' src={eachEvent.previewImage} alt='group preview image' />
                                 <div id='event-list-details-container'>
@@ -73,7 +73,7 @@ function EventsList({ groupId }) {
                                 </div>
                             </div>
                             {eventDetails[eachEvent.id] && <p className="event-list-item-texts">{eventDetails[eachEvent.id].description}</p>}
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </>

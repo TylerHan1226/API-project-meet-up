@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchGroupDetailThunk } from "../../store/groups";
 
@@ -11,12 +11,13 @@ function GroupDetails() {
 
     const { groupId } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const group = useSelector(state => state.groups.Group);
 
     let events = []
     events = useSelector(state => state.events.events.Events)
     const currentUser = useSelector(state => state.session.user)
-    console.log('currentUser ==>', currentUser)
+
     useEffect(() => {
         dispatch(fetchGroupDetailThunk(groupId))
     }, [dispatch, groupId])
@@ -34,9 +35,6 @@ function GroupDetails() {
         if (currentUser) {
             const currentUserId = currentUser.id
             const groupOrganizerId = group.organizerId
-            // console.log('currentUser ==>', currentUser)
-            // console.log('currentUserId ==>', currentUserId)
-            // console.log('groupOrganizerId ==>', groupOrganizerId)
             if (groupOrganizerId == currentUserId) {
                 displayJoinButton = false
                 displayActionButtons = true
@@ -48,6 +46,9 @@ function GroupDetails() {
 
     const featureAlert = () => {
         alert("Feature coming soon!");
+    }
+    const handleUpdateGroup = () => {
+        navigate(`/groups/${groupId}/update`)
     }
 
     return (
@@ -67,7 +68,7 @@ function GroupDetails() {
                             {events && group && <p>{events.length} events · {isPublic}</p>}
                             <div className="action-buttons-container">
                                 {displayActionButtons && <button className="group-action-button">Create event</button>}
-                                {displayActionButtons && <button className="group-action-button">Update</button>}
+                                {displayActionButtons && <button className="group-action-button" onClick={handleUpdateGroup}>Update</button>}
                                 {displayActionButtons && <button className="group-action-button">Delete</button>}
                             </div>
                             {displayJoinButton && <button className="join-group-button" onClick={featureAlert}>Join this group</button>}

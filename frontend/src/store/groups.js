@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 export const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 export const LOAD_GROUP_DETAIL = 'groups/LOAD_GROUP_DETAIL'
 export const CREATE_GROUP = 'groups/create'
+export const UPDATE_GROUP = 'groups/:groupId/update'
 
 
 /**  Action Creators: */
@@ -22,6 +23,10 @@ export const loadGroupDetails = (group) => ({
 export const createGroup = (group) => ({
     type: CREATE_GROUP,
     payload: group
+})
+export const updateGroup = (updatedGroup) => ({
+    type: UPDATE_GROUP,
+    payload: updatedGroup
 })
 
 
@@ -64,10 +69,30 @@ export const createGroupThunk = (payload) => async (dispatch) => {
     if (!response.ok) {
         throw new Error('Failed to create group')
     }
-    console.log('response from creating group', response)
     const newGroup = await response.json()
     dispatch(createGroup(newGroup))
     return newGroup
+}
+//update group
+export const updateGroupThunk = (payload, id) => async (dispatch) => {
+    const getCookie = () => {
+        return Cookies.get("XSRF-TOKEN");
+    };
+    console.log('payload ==> ', payload)
+    const response = await fetch(`/api/groups/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'XSRF-TOKEN': getCookie()
+        },
+        body: JSON.stringify(payload)
+    })
+    if (!response.ok) {
+        throw new Error('Failed to update group')
+    }
+    const updatedGroup = await response.json()
+    dispatch(updateGroup(updatedGroup))
+    return updatedGroup
 }
 
 
@@ -96,6 +121,15 @@ const groupsReducer = (state ={}, action) => {
             return groupState
         }
         case CREATE_GROUP: {
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.payload.id]: action.payload
+                }
+            }
+        }
+        case UPDATE_GROUP: {
             return {
                 ...state,
                 groups: {
