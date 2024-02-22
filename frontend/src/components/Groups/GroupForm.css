@@ -28,3 +28,12 @@
 .form-errors {
     color: red;
 }
+
+.yes-button {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+}
+
+.no-button {
+    background-color: darkgrey;
+}

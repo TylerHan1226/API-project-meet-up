@@ -36,8 +36,6 @@ function updateGroup() {
         }
     }
 
-
-
     const [errors, setErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
 

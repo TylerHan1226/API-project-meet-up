@@ -32,10 +32,6 @@ function CreateGroupForm() {
         setErrors(errors)
     }, [name, about, type, IsPrivate, location])
 
-    
-    // const sessionUser = useSelector(state => state.session.user);
-    // console.log('sessionUser ==>', sessionUser)
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)

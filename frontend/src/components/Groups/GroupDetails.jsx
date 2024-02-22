@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchGroupDetailThunk } from "../../store/groups";
+import { useModal } from '../../context/Modal';
+import DeleteGroupModal from "./DeleteGroupModal";
 
 import { IoChevronBack } from "react-icons/io5";
 import { FaPersonRunning } from "react-icons/fa6";
@@ -44,6 +46,14 @@ function GroupDetails() {
         }
     }
 
+    let showDeleteModal = false
+    const { setModalContent, setOnModalClose } = useModal();
+    const openDeleteMenu = () => {
+        if (showDeleteModal) setOnModalClose(showDeleteModal)
+        setModalContent(<DeleteGroupModal groupId={groupId} />)
+    }
+
+    //callback functions
     const featureAlert = () => {
         alert("Feature coming soon!");
     }
@@ -69,7 +79,7 @@ function GroupDetails() {
                             <div className="action-buttons-container">
                                 {displayActionButtons && <button className="group-action-button">Create event</button>}
                                 {displayActionButtons && <button className="group-action-button" onClick={handleUpdateGroup}>Update</button>}
-                                {displayActionButtons && <button className="group-action-button">Delete</button>}
+                                {displayActionButtons && <button className="group-action-button" onClick={openDeleteMenu}>Delete</button>}
                             </div>
                             {displayJoinButton && <button className="join-group-button" onClick={featureAlert}>Join this group</button>}
                         </div>
@@ -90,9 +100,16 @@ function GroupDetails() {
                             </div>
                         </div>
                     </section>
-
+                    {/* <div>
+                        {true &&
+                            <OpenModalMenuItem
+                                itemText="Delete Group"
+                                onItemClick={closeMenu}
+                                modalComponent={<DeleteGroupModal />}
+                            />}
+                        {showMenu && <DeleteGroupModal />}
+                    </div> */}
                 </section>
-
             ) : (
                 <h2><FaPersonRunning /> loading ...</h2> // Render a message if no images
             )}

@@ -13,6 +13,7 @@ import Events from './components/Events/Events';
 import EventDetails from './components/Events/EventDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
 import UpdateGroupForm from './components/Groups/UpdateGroupForm';
+import DeleteGroupModal from './components/Groups/DeleteGroupModal';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: 'signup',
         element: <SignupFormPage />
+      },
+      {
+        path: 'deleteGroup',
+        element: <DeleteGroupModal />
       }
     ]
   }

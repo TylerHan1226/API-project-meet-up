@@ -9,6 +9,7 @@ export const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 export const LOAD_GROUP_DETAIL = 'groups/LOAD_GROUP_DETAIL'
 export const CREATE_GROUP = 'groups/create'
 export const UPDATE_GROUP = 'groups/:groupId/update'
+export const DELETE_GROUP = 'groups/DELETE_GROUP'
 
 
 /**  Action Creators: */
@@ -27,6 +28,10 @@ export const createGroup = (group) => ({
 export const updateGroup = (updatedGroup) => ({
     type: UPDATE_GROUP,
     payload: updatedGroup
+})
+export const deleteGroup = (groupId) => ({
+    type: DELETE_GROUP,
+    payload: groupId
 })
 
 
@@ -78,7 +83,7 @@ export const updateGroupThunk = (payload, id) => async (dispatch) => {
     const getCookie = () => {
         return Cookies.get("XSRF-TOKEN");
     };
-    console.log('payload ==> ', payload)
+    // console.log('payload ==> ', payload)
     const response = await fetch(`/api/groups/${id}`, {
         method: 'PUT',
         headers: {
@@ -94,7 +99,24 @@ export const updateGroupThunk = (payload, id) => async (dispatch) => {
     dispatch(updateGroup(updatedGroup))
     return updatedGroup
 }
-
+//delete group
+export const deleteGroupThunk = (groupId) => async dispatch => {
+    const getCookie = () => {
+        return Cookies.get("XSRF-TOKEN");
+    };
+    const response = await fetch(`/api/groups/${groupId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'XSRF-TOKEN': getCookie()
+        }
+    })
+    if (!response.ok) {
+        throw new Error('Failed to delete group')
+    } else {
+        dispatch(deleteGroup(groupId))
+    }
+}
 
 
 /** Selectors: */
@@ -137,6 +159,12 @@ const groupsReducer = (state ={}, action) => {
                     [action.payload.id]: action.payload
                 }
             }
+        }
+        case DELETE_GROUP: {
+            const newState = {...state}
+            console.log('newState ==>', newState)
+            delete newState.groups[action.payload.groupId]
+            return newState
         }
         default:
             return state
