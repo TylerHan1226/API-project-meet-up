@@ -9,11 +9,12 @@ import { FaMeetup } from "react-icons/fa"; //react icon
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
-  console.log('sessionUser ==>', sessionUser)
+  // console.log('sessionUser ==>', sessionUser)
   let displayStartNewGroup = false
   if (sessionUser) {
     displayStartNewGroup = true
   }
+
 
   return (
 
@@ -24,15 +25,15 @@ function Navigation({ isLoaded }) {
       </NavLink>
 
       <div id="start-new-group">
-      {isLoaded && displayStartNewGroup && (
-          <NavLink>Start a new group!</NavLink>
-      )}
+        {isLoaded && displayStartNewGroup && (
+          <NavLink className="start-new-group-link" to='/groups/create'>Start a new group!</NavLink>
+        )}
       </div>
 
       <div id="user-auth">
-      {isLoaded && (
+        {isLoaded && (
           <ProfileButton user={sessionUser} />
-      )}
+        )}
       </div>
 
     </div>

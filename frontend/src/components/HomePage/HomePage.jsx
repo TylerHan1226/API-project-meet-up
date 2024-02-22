@@ -43,7 +43,7 @@ function HomePage() {
                     </div>
                     <div className='homepage-actions'>
                         <MdGroups2 className='homepage-action-icons' />
-                        <h4>Start a new group</h4>
+                        <NavLink to='/groups/create'>Start a new group!</NavLink>
                     </div>
                 </div>
             </div>

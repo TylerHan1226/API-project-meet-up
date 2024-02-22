@@ -1,3 +1,15 @@
+p {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+li {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 .profile-dropdown {
   position: absolute;
 }
@@ -16,12 +28,18 @@
   display: flex;
   flex-direction: row;
   border-bottom: grey solid 2px;
+  background-color: rgb(180, 180, 255, 0.15);
 }
 
 #user-auth {
-  margin-left: auto;
+  align-self: center;
 }
 
-/* .loginSignUp-buttons {
-  color: red;
-} */
+#start-new-group {
+  align-self: center;
+  margin: 0 24px 0 auto;
+}
+
+.start-new-group-link {
+  text-decoration: none;
+}

@@ -1,11 +1,13 @@
 //imports
 import {createSelector} from 'reselect'
-import {fetchAllEventThunk} from '../store/events' 
+import {fetchAllEventThunk} from '../store/events'
+import Cookies from "js-cookie";
 
 
 /** Action Type Constants: */
 export const LOAD_GROUPS = 'groups/LOAD_GROUPS'
 export const LOAD_GROUP_DETAIL = 'groups/LOAD_GROUP_DETAIL'
+export const CREATE_GROUP = 'groups/create'
 
 
 /**  Action Creators: */
@@ -16,6 +18,10 @@ export const loadGroups = (groups) => ({
 export const loadGroupDetails = (group) => ({
     type: LOAD_GROUP_DETAIL,
     group
+})
+export const createGroup = (group) => ({
+    type: CREATE_GROUP,
+    payload: group
 })
 
 
@@ -42,6 +48,27 @@ export const fetchGroupDetailThunk = (groupId) => async (dispatch) => {
     // console.log('group in groups.js ==>', group)
     dispatch(loadGroupDetails(group))
 }
+//create group
+export const createGroupThunk = (payload) => async (dispatch) => {
+    const getCookie = () => {
+        return Cookies.get("XSRF-TOKEN");
+    };
+    const response = await fetch('/api/groups', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'XSRF-TOKEN': getCookie()
+        },
+        body: JSON.stringify(payload)
+    })
+    if (!response.ok) {
+        throw new Error('Failed to create group')
+    }
+    console.log('response from creating group', response)
+    const newGroup = await response.json()
+    dispatch(createGroup(newGroup))
+    return newGroup
+}
 
 
 
@@ -67,6 +94,15 @@ const groupsReducer = (state ={}, action) => {
             const groupState = {}
             groupState.Group = action.group
             return groupState
+        }
+        case CREATE_GROUP: {
+            return {
+                ...state,
+                groups: {
+                    ...state.groups,
+                    [action.payload.id]: action.payload
+                }
+            }
         }
         default:
             return state
