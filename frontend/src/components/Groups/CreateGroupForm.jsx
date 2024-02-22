@@ -24,7 +24,7 @@ function CreateGroupForm() {
     useEffect(() => {
         const errors = {};
         if (!name) errors.name = 'Name field is required';
-        if (name.length > 60) errors.name = 'Name must be 60 characters or less'
+        if (name < 5 || name.length > 60) errors.name = 'Name must be between 5 to 60 characters'
         if (about.length < 50) errors.about = 'About must have 50 characters or more';
         if (type !== 'Online' && type !== 'In person') errors.type = 'Type must be "Online" or "In person"';
         if (!location.split(', ')[0]) errors.city = 'City is required';
@@ -136,7 +136,7 @@ function CreateGroupForm() {
                         type="text"
                         value={groupImgUrl}
                         onChange={(e) => setGroupImgUrl(e.target.value)}
-                        placeholder="Image Url"
+                        placeholder="Image URL"
                     />
 
                 </section>

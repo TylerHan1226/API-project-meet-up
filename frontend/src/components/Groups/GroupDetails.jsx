@@ -60,6 +60,9 @@ function GroupDetails() {
     const handleUpdateGroup = () => {
         navigate(`/groups/${groupId}/update`)
     }
+    const handleCreateEvent = () => {
+        navigate(`/groups/${groupId}/events/create`)
+    }
 
     return (
         <>
@@ -77,7 +80,7 @@ function GroupDetails() {
                             <p>Organized by: {group.Organizer.firstName} {group.Organizer.lastName}</p>
                             {events && group && <p>{events.length} events · {isPublic}</p>}
                             <div className="action-buttons-container">
-                                {displayActionButtons && <button className="group-action-button">Create event</button>}
+                                {displayActionButtons && <button className="group-action-button" onClick={handleCreateEvent}>Create event</button>}
                                 {displayActionButtons && <button className="group-action-button" onClick={handleUpdateGroup}>Update</button>}
                                 {displayActionButtons && <button className="group-action-button" onClick={openDeleteMenu}>Delete</button>}
                             </div>

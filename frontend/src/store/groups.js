@@ -1,7 +1,8 @@
 //imports
 import {createSelector} from 'reselect'
-import {fetchAllEventThunk} from '../store/events'
 import Cookies from "js-cookie";
+
+import {fetchAllEventThunk} from '../store/events'
 
 
 /** Action Type Constants: */

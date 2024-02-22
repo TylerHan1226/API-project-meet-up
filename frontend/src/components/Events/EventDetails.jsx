@@ -33,18 +33,21 @@ function EventDetails() {
 
     //organizer name
     // const groupDetail = group[eventId]
-    const groupEvent = group[eventId];
-    const organizerFirstName = groupEvent && groupEvent.Organizer ? groupEvent.Organizer.firstName : '';
-    const organizerLastName = groupEvent && groupEvent.Organizer ? groupEvent.Organizer.lastName : '';
+    const groupDetail = group[eventId];
+    const organizerFirstName = groupDetail && groupDetail.Organizer ? groupDetail.Organizer.firstName : '';
+    const organizerLastName = groupDetail && groupDetail.Organizer ? groupDetail.Organizer.lastName : '';
     //preview img
-    const previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
+    let previewImgUrl = ''
+    if (event.EventImages) {
+        previewImgUrl = event.EventImages.filter((image) => image.preview === true)[0].url
+    }
     //isPublic?
     let isPublic = 'Public'
     if (event.private == true) {
         isPublic = 'Private'
     }
     //get group img
-    const groupImgUrlArr = groupEvent && groupEvent.GroupImages ? groupEvent.GroupImages : [];
+    const groupImgUrlArr = groupDetail && groupDetail.GroupImages ? groupDetail.GroupImages : [];
     const groupImgUrl = groupImgUrlArr.length > 0 ? groupImgUrlArr.filter((img) => img.preview === true)[0].url : '';
     
     //event start/end date
@@ -56,8 +59,15 @@ function EventDetails() {
     console.log('event ==>', event)
     console.log('group ==>', group)
     console.log('currentUser ==>', currentUser)
+    //show button?
     let isCreator = false
-    // if ()
+    if (groupDetail && currentUser.id == groupDetail.Organizer.id) {
+        isCreator = true
+    }
+    //callbacks
+    const featureAlert = () => {
+        alert("Feature coming soon!");
+    }
 
     return (
         <>
@@ -100,10 +110,14 @@ function EventDetails() {
                                 </div>
                             </div>
 
-                            <div className="event-action-buttons-container">
+                            {isCreator ? <div className="event-action-buttons-container">
                                 <button className="event-action-button" >Update</button>
                                 <button className="event-action-button" >Delete</button>
-                            </div>
+                            </div> : (
+                                <div className="event-action-buttons-container">
+                                    <button className="event-action-button" onClick={featureAlert}>Join this Event!</button>
+                                </div>                      
+                            )}
 
                             <div className="event-description-container">
                                 <h3>Description</h3>

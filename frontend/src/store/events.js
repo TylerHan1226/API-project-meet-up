@@ -1,5 +1,6 @@
 //imports
 import {createSelector} from 'reselect'
+import Cookies from 'js-cookie'
 
 
 /** Action Type Constants: */
@@ -7,6 +8,7 @@ export const LOAD_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_ALL_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_EVENT_DETAILS = '/events/LOAD_EVENT_DETAILS'
 export const LOAD_GROUP_DETAILS = '/events/LOAD_GROUP_DETAILS'
+export const CREATE_EVENT = '/events/CREATE_EVENT'
 
 /**  Action Creators: */
 export const loadEventsByGroup = (events) => ({
@@ -24,6 +26,10 @@ export const loadEventDetails = (eventDetail) => ({
 export const loadGroupDetails = (groupDetail) => ({
     type: LOAD_GROUP_DETAILS,
     groupDetail
+})
+export const createEvent = (event) => ({
+    type: CREATE_EVENT,
+    payload: event
 })
 
 /** Thunk Action Creators: */
@@ -87,6 +93,26 @@ export const fetchEventByIdThunk = (eventId) => async (dispatch) => {
     groupDetail[event.id] = await groupResponse.json()
     dispatch(loadGroupDetails(groupDetail))
 }
+//create event
+export const createEventThunk = (payload, groupId) => async (dispatch) => {
+    const getCookie = () => {
+        return Cookies.get("XSRF-TOKEN");
+    }
+    const response = await fetch(`/api/groups/${groupId}/events`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'XSRF-TOKEN': getCookie()
+        },
+        body: JSON.stringify(payload)
+    })
+    if (!response.ok) {
+        throw new Error('Failed to create event')
+    }
+    const newEvent = await response.json()
+    dispatch(createEvent(newEvent))
+    return newEvent
+}
 
 
 /** Selectors: */
@@ -129,6 +155,15 @@ const eventsReducer = (state =initialState, action) => {
             return {
                 ...state,
                 groupDetails: action.groupDetail
+            }
+        }
+        case CREATE_EVENT: {
+            return {
+                ...state,
+                events: {
+                    ...state.events,
+                    [action.payload.id]: action.payload
+                }
             }
         }
         default:

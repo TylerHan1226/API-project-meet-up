@@ -14,6 +14,7 @@ import EventDetails from './components/Events/EventDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
 import UpdateGroupForm from './components/Groups/UpdateGroupForm';
 import DeleteGroupModal from './components/Groups/DeleteGroupModal';
+import CreateEventForm from './components/Events/CreateEventForm';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: `/groups/:groupId`,
         element: <GroupDetails />
+      },
+      {
+        path: `/groups/:groupId/events/create`,
+        element: <CreateEventForm />
       },
       {
         path: '/events',
