@@ -14,7 +14,7 @@ module.exports = {
     await GroupImage.bulkCreate([
       {
         groupId: 1,
-        url: 'https://res.cloudinary.com/do8l6gpqp/image/upload/v1708383842/Lost_Lands_2023_Pics_14_hea0ws.jpg',
+        url: 'https://res.cloudinary.com/do8l6gpqp/image/upload/v1708649566/group_img_-_02_pigicz.jpg',
         preview: true
       },
       {
