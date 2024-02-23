@@ -8,7 +8,10 @@ function EventsList({ groupId }) {
 
     const dispatch = useDispatch()
     const events = useSelector(selectEventsArr)
-    const eventArr = events[0].Events
+    let eventArr = []
+    if (Array.isArray(events[0].Events)) {
+        eventArr = events[0].Events.filter((event) => event.groupId == groupId)
+    }
     const eventDetails = useSelector(state => state.events.eventDetails)
 
     useEffect(() => {
@@ -35,7 +38,9 @@ function EventsList({ groupId }) {
 
     return (
         Array.isArray(eventArr) && eventDetails && (
-            <>
+            <>  
+                <h3>Events ({eventArr.length})</h3>
+
                 <div>
                     <h4>Upcoming Events ({upcomingEventsArr.length})</h4>
                 </div>

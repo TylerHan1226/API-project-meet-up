@@ -90,7 +90,7 @@ function CreateEventForm() {
 
     return (
         <>
-            {true && <form className="form-container" onSubmit={handleSubmit}>
+            {group && <form className="form-container" onSubmit={handleSubmit}>
 
                 <section className="form-section-container">
                     {group && <h1>Create an event for {group.name}!</h1>}
@@ -172,7 +172,7 @@ function CreateEventForm() {
                         type="text"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        placeholder="MM/DD/YYYY"
+                        placeholder="YYYY-MM-DD 00:00:00"
                     />
                     <div>
                         {hasSubmitted && errors.startDate && <p className="form-errors">* `{errors.startDate}`</p>}
@@ -183,7 +183,7 @@ function CreateEventForm() {
                         type="text"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        placeholder="MM/DD/YYYY"
+                        placeholder="YYYY-MM-DD 00:00:00"
                     />
                     <div>
                         {hasSubmitted && errors.endDate && <p className="form-errors">* `{errors.endDate}`</p>}

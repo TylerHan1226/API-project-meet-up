@@ -36,7 +36,7 @@ function GroupDetails() {
     let displayJoinButton = true
     let displayActionButtons = false
     let showDeleteModal = false
-    if (groupId && group && events) {
+    if (groupId && group) {
         if (group.GroupImages.length !== 0) {
             previewImgUrl = group.GroupImages.filter((image) => image.preview === true)[0].url
         }
@@ -54,6 +54,12 @@ function GroupDetails() {
         } else {
             displayJoinButton = false
         }
+    }
+
+    let numEvents = 0
+    if (events) {
+        const relatedEvents = events.filter((event) => event.groupId == groupId)
+        numEvents = relatedEvents.length
     }
 
     const { setModalContent, setOnModalClose } = useModal();
@@ -87,7 +93,7 @@ function GroupDetails() {
                             <h2>{group.name}</h2>
                             <p>{group.city}, {group.state}</p>
                             <p>Organized by: {group.Organizer.firstName} {group.Organizer.lastName}</p>
-                            {events && group && <p>{events.length} events · {isPublic}</p>}
+                            <p>{numEvents} events · {isPublic}</p>
                             <div className="action-buttons-container">
                                 {displayActionButtons && <button className="group-action-button" onClick={handleCreateEvent}>Create event</button>}
                                 {displayActionButtons && <button className="group-action-button" onClick={handleUpdateGroup}>Update</button>}
@@ -106,10 +112,9 @@ function GroupDetails() {
                                 <h3 className='detail-title'>What we are about</h3>
                                 <h5 className='detail-text'>{group.about}</h5>
                             </div>
-                            {events && <div className='detail-section'>
-                                <h3>Events ({events.length})</h3>
+                            <div className='detail-section'>
                                 <EventsList groupId={groupId} />
-                            </div>}
+                            </div>
                         </div>
                     </section>
 
