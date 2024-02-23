@@ -90,38 +90,32 @@ function CreateEventForm() {
 
     //date time validation
     const validateDateTime = (dateTimeString) => {
-        const dateTimeParts = dateTimeString.split(' ');
+        const dateTimeParts = dateTimeString.split(' ')
         if (dateTimeParts.length !== 2) {
-            return 'Please enter both date and time';
+            return 'Please enter both date and time'
         }
-    
-        const [datePart, timePart] = dateTimeParts;
-        const [year, month, day] = datePart.split('-');
-        const [hour, minute, second] = timePart.split(':');
-    
+        const [datePart, timePart] = dateTimeParts
+        const [year, month, day] = datePart.split('-')
+        const [hour, minute, second] = timePart.split(':')
         if (year.length !== 4 || month.length !== 2 || day.length !== 2) {
-            return 'Date must be in the format: YYYY-MM-DD';
+            return 'Date must be in the format: YYYY-MM-DD'
         }
-    
         if (hour.length !== 2 || minute.length !== 2 || second.length !== 2) {
-            return 'Time must be in the format: HH:MM:SS';
+            return 'Time must be in the format: HH:MM:SS'
         }
-    
-        const inputDate = new Date(dateTimeString);
-        const currentDate = new Date();
+        const inputDate = new Date(dateTimeString)
+        const currentDate = new Date()
         if (isNaN(inputDate.getTime())) {
-            return 'Invalid date or time';
+            return 'Invalid date or time'
         }
-    
         if (inputDate <= currentDate) {
             return 'Date and time must be in the future';
         }
-    
-        return null; // No errors
+        return null;
     };
 
     if (!group) {
-        return <h2><FaPersonRunning /> Loading...</h2>;
+        return <h2><FaPersonRunning /> Loading...</h2>
     }
 
     const handleSubmit = async (e) => {
