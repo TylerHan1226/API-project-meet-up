@@ -31,7 +31,7 @@ function LoginFormModal() {
 
   // const demoCredential = 'user1@user.io'
   // const demoPassword = 'password'
-  const handleDemoLogin = (e) => {
+  const handleDemoLogin = () => {
     setCredential('user1@user.io')
     setPassword('password')
   }

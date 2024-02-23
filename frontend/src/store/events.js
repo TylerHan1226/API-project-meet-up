@@ -9,6 +9,7 @@ export const LOAD_ALL_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_EVENT_DETAILS = '/events/LOAD_EVENT_DETAILS'
 export const LOAD_GROUP_DETAILS = '/events/LOAD_GROUP_DETAILS'
 export const CREATE_EVENT = '/events/CREATE_EVENT'
+export const DELETE_EVENT = '/events/DELETE_EVENT'
 
 /**  Action Creators: */
 export const loadEventsByGroup = (events) => ({
@@ -30,6 +31,10 @@ export const loadGroupDetails = (groupDetail) => ({
 export const createEvent = (event) => ({
     type: CREATE_EVENT,
     payload: event
+})
+export const deleteEvent = (eventId) => ({
+    type: DELETE_EVENT,
+    payload: eventId
 })
 
 /** Thunk Action Creators: */
@@ -113,6 +118,24 @@ export const createEventThunk = (payload, groupId) => async (dispatch) => {
     dispatch(createEvent(newEvent))
     return newEvent
 }
+//delete event
+export const deleteEventThunk = (eventId) => async dispatch => {
+    const getCookie = () => {
+        return Cookies.get("XSRF-TOKEN");
+    };
+    const response = await fetch(`/api/events/${eventId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'XSRF-TOKEN': getCookie()
+        }
+    })
+    if (!response.ok) {
+        throw new Error('Failed to delete event')
+    } else {
+        dispatch(deleteEvent(eventId))
+    }
+}
 
 
 /** Selectors: */
@@ -165,6 +188,11 @@ const eventsReducer = (state =initialState, action) => {
                     [action.payload.id]: action.payload
                 }
             }
+        }
+        case DELETE_EVENT: {
+            const newState = {...state}
+            delete newState.events[action.payload.eventId]
+            return newState
         }
         default:
             return state

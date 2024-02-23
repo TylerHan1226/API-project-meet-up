@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton-bonus';
-import CreateGroupForm from '../Groups/CreateGroupForm';
 import './Navigation.css';
 
 import { FaMeetup } from "react-icons/fa"; //react icon

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { fetchGroupDetailThunk } from "../../store/groups";
 import { useModal } from '../../context/Modal';
 import DeleteGroupModal from "./DeleteGroupModal";

@@ -32,7 +32,7 @@ function CreateEventForm() {
 
     useEffect(() => {
         dispatch(fetchGroupDetailThunk(groupId))
-    }, [dispatch])
+    }, [dispatch, groupId])
 
     useEffect(() => {
         const errors = {}

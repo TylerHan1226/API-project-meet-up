@@ -1,15 +1,17 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
-import { fetchEventByIdThunk } from "../../store/events"
-import { IoChevronBack } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom"
+import { useModal } from "../../context/Modal";
 
+import { IoChevronBack } from "react-icons/io5";
 import { FaPersonRunning } from "react-icons/fa6";
 import { WiTime4 } from "react-icons/wi";
 import { TbPigMoney } from "react-icons/tb";
 import { IoLocationOutline } from "react-icons/io5";
 
+
+import { fetchEventByIdThunk } from "../../store/events"
+import DeleteEventModal from "./DeleteEventModal";
 import './Events.css'
 
 
@@ -64,6 +66,15 @@ function EventDetails() {
     if (groupDetail && currentUser.id == groupDetail.Organizer.id) {
         isCreator = true
     }
+
+    //delete button
+    let showDeleteModal = false
+    const { setModalContent, setOnModalClose } = useModal()
+    const openDeleteMenu = () => {
+        if (showDeleteModal) setOnModalClose(showDeleteModal)
+        setModalContent(< DeleteEventModal eventId={event.id} />)
+    }
+
     //callbacks
     const featureAlert = () => {
         alert("Feature coming soon!");
@@ -112,7 +123,7 @@ function EventDetails() {
 
                             {isCreator ? <div className="event-action-buttons-container">
                                 <button className="event-action-button" >Update</button>
-                                <button className="event-action-button" >Delete</button>
+                                <button className="event-action-button" onClick={openDeleteMenu}>Delete</button>
                             </div> : (
                                 <div className="event-action-buttons-container">
                                     <button className="event-action-button" onClick={featureAlert}>Join this Event!</button>

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import './GroupForm.css'
 import { updateGroupThunk, fetchGroupDetailThunk } from "../../store/groups"
 
-function updateGroup() {
+function UpdateGroup() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -181,4 +181,4 @@ function updateGroup() {
     )
 }
 
-export default updateGroup
+export default UpdateGroup

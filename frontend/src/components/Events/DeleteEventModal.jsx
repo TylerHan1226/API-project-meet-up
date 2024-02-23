@@ -2,20 +2,20 @@
 import { useDispatch } from 'react-redux';
 // import { useModal } from '../../context/Modal';
 import { useNavigate } from 'react-router-dom';
-import { deleteGroupThunk } from '../../store/groups';
-import './GroupForm.css'
+import { deleteEventThunk } from '../../store/events';
+import './EventForm.css'
 
-function DeleteGroupModal({groupId}) {
+function DeleteEventModal({eventId}) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const deleteGroup = () => {
-        dispatch(deleteGroupThunk(groupId))
-        navigate('/groups')
+        dispatch(deleteEventThunk(eventId))
+        navigate('/events')
     }
-    // const keepGroup = () => {
-    //     navigate(`/groups/${groupId}`)
-    // }
+    // // const keepGroup = () => {
+    // //     navigate(`/groups/${groupId}`)
+    // // }
 
     return (
         <>
@@ -28,4 +28,4 @@ function DeleteGroupModal({groupId}) {
     )
 }
 
-export default DeleteGroupModal
+export default DeleteEventModal
