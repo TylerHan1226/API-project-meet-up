@@ -11,10 +11,12 @@ import { fetchGroupDetailThunk } from "../../store/groups";
 
 
 function CreateEventForm() {
-    const {groupId: groupId} = useParams()
+    
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const {groupId: groupId} = useParams()
+    const user = useSelector(state => state.session.user)
 
     const [errors, setErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
@@ -48,45 +50,22 @@ function CreateEventForm() {
         const endDateError = validateDateTime(endDate);
         if (endDateError) {
             errors.endDate = endDateError;
-        }    
-        // try {
-        //     const startDateTimeArr = [...startDate.split(' ')[0].split('-'), ...startDate.split(' ')[1].split(':')]
-        //     if (startDateTimeArr.length !== 6) {
-        //         errors.startDate = 'Please enter the start date in such format: 2080-01-01 08:00:00'
-        //     }
-        // } catch {
-        //     errors.startDate = 'Please enter the start date in such format: 2080-01-01 08:00:00'
-        // }
-        // try {
-        //     const endDateTimeArr = [...endDate.split(' ')[0].split('-'), ...endDate.split(' ')[1].split(':')]
-        //     if (endDateTimeArr.length !== 6) {
-        //         errors.endDate = 'Please enter the end date in such format: 2080-01-01 09:00:00'
-        //     }
-        // } catch {
-        //     errors.endDate = 'Please enter the start date in such format: 2080-01-01 09:00:00'
-        // }
-        // const currentDate = new Date()
-        // const inputStartDate = new Date(startDate)
-        // const inputEndDate = new Date(endDate)
-        // if (!inputStartDate) {
-        //     errors.startDate = 'Invalid start date'
-        // }
-        // if (inputStartDate <= currentDate) {
-        //     errors.startDate = 'Start date must be in the future.'
-        // }
-        // if (!inputEndDate) {
-        //     errors.startDate = 'Invalid start date'
-        // }
-        // if (inputEndDate <= currentDate) {
-        //     errors.endDate = 'End date must be in the future.'
-        // }
+        }
+        if (endDate >= startDate) {
+            errors.endDate = 'End date but be later than the start date'
+        }
 
         if (!description) errors.description = 'Description is required'
         if (description.length < 30) errors.description = 'Description needs 30 or more characters'
         if (capacity <= 0) errors.capacity = 'Capacity must be an integer and greater than 0'
 
         setErrors(errors)
-    }, [name, type, price, startDate, endDate, description, capacity])
+        //validate user
+        if (!user) {
+            navigate('/')
+        }
+
+    }, [name, type, price, startDate, endDate, description, capacity, navigate, user])
 
     //date time validation
     const validateDateTime = (dateTimeString) => {
@@ -117,11 +96,18 @@ function CreateEventForm() {
     if (!group) {
         return <h2><FaPersonRunning /> Loading...</h2>
     }
+    //validate user
+    if (user && group) {
+        console.log('user ==>', user)
+        console.log('group ==>', group)
+        if (user.id !== group.organizerId) {
+            navigate('/')
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)
-
         const newEvent = {
             name, type, price, startDate, endDate, description, capacity: parseInt(capacity), venueId: 1
         }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { createGroupThunk } from "../../store/groups"
 import './GroupForm.css'
 
@@ -8,6 +8,8 @@ function CreateGroupForm() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const user = useSelector(state => state.session.user)
 
     const [errors, setErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
@@ -30,7 +32,11 @@ function CreateGroupForm() {
         if (!location.split(', ')[0]) errors.city = 'City is required';
         if (!location.split(', ')[1]) errors.state = 'State is required';
         setErrors(errors)
-    }, [name, about, type, IsPrivate, location])
+        //validate user
+        if (!user) {
+            navigate('/')
+        }
+    }, [name, about, type, IsPrivate, location, navigate, user])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

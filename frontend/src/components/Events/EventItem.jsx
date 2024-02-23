@@ -7,7 +7,7 @@ function EventItem({ event, eventDetail }) {
         event.id && eventDetail && (
             <Link id='event-item-container' to={`/events/${event.id}`}>
                 <div id='event-image-detail-container'>
-                    <img className='item-image' src={event.previewImage} alt='group preview image' />
+                    <img className='item-image' src={event.previewImage} alt='event preview image (new image feature coming soon!)' />
                     <div id='details-container'>
                     <h5 className='event-list-item-texts'>{event.startDate.split(' ')[0]} · {event.startDate.split(' ')[1]}</h5>
                         <h4 className='event-list-item-texts'>{event.name}</h4>

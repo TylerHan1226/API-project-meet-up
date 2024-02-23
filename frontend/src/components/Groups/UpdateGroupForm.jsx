@@ -9,7 +9,7 @@ function UpdateGroup() {
     const dispatch = useDispatch()
 
     const { groupId } = useParams()
-    const sessionUser = useSelector(state => state.session.user);
+    const user = useSelector(state => state.session.user);
     const group = useSelector(state => state.groups.Group)
 
     const [errors, setErrors] = useState({})
@@ -46,16 +46,20 @@ function UpdateGroup() {
         if (!location.split(', ')[0]) errors.city = 'City is required';
         if (!location.split(', ')[1]) errors.state = 'State is required';
         setErrors(errors)
-    }, [dispatch, name, about, type, IsPrivate, location])
+        if (!user) {
+            navigate('/')
+        }
+    }, [dispatch, name, about, type, IsPrivate, location, navigate, user])
 
     if (!group) {
         return <div>Loading...</div>
     }
-    
-    if (sessionUser.id !== group.organizerId) {
-        navigate(`/`)
-        return null
+    if (user) {
+        if (user.id !== group.organizerId) {
+            navigate(`/`)
+        }
     }
+
 
     //call backs
     const handleSubmit = async (e) => {
