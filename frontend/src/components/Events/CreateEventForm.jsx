@@ -106,7 +106,7 @@ function CreateEventForm() {
                         placeholder="Event Name"
                     />
                     <div>
-                        {hasSubmitted && errors.name && <p className="form-errors">* {errors.name}</p>}
+                        {hasSubmitted && errors.name && <p className="form-errors">* `{errors.name}`</p>}
                     </div>
                 </section>
 
@@ -133,7 +133,7 @@ function CreateEventForm() {
                         </label>
                     </div>
                     <div>
-                        {hasSubmitted && errors.type && <p className="form-errors">* {errors.type}</p>}
+                        {hasSubmitted && errors.type && <p className="form-errors">* `{errors.type}`</p>}
                     </div>
                 </section>
 
@@ -147,7 +147,7 @@ function CreateEventForm() {
                         placeholder="0"
                     />
                     <div>
-                        {hasSubmitted && errors.price && <p className="form-errors">* {errors.price}</p>}
+                        {hasSubmitted && errors.price && <p className="form-errors">* `{errors.price}`</p>}
                     </div>
                 </section>
 
@@ -161,7 +161,7 @@ function CreateEventForm() {
                         placeholder="0"
                     />
                     <div>
-                        {hasSubmitted && errors.capacity && <p className="form-errors">* {errors.capacity}</p>}
+                        {hasSubmitted && errors.capacity && <p className="form-errors">* `{errors.capacity}`</p>}
                     </div>
                 </section>
 
@@ -175,7 +175,7 @@ function CreateEventForm() {
                         placeholder="MM/DD/YYYY"
                     />
                     <div>
-                        {hasSubmitted && errors.startDate && <p className="form-errors">* {errors.startDate}</p>}
+                        {hasSubmitted && errors.startDate && <p className="form-errors">* `{errors.startDate}`</p>}
                     </div>
                     <h3>When does your event end?</h3>
                     <input
@@ -186,7 +186,7 @@ function CreateEventForm() {
                         placeholder="MM/DD/YYYY"
                     />
                     <div>
-                        {hasSubmitted && errors.endDate && <p className="form-errors">* {errors.endDate}</p>}
+                        {hasSubmitted && errors.endDate && <p className="form-errors">* `{errors.endDate}`</p>}
                     </div>
                 </section>
 
@@ -216,7 +216,7 @@ function CreateEventForm() {
                     />
 
                     <div>
-                        {hasSubmitted && errors.description && <p className="form-errors">* {errors.description}</p>}
+                        {hasSubmitted && errors.description && <p className="form-errors">* `{errors.description}`</p>}
                     </div>
                 </section>
 

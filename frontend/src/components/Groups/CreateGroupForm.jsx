@@ -60,12 +60,12 @@ function CreateGroupForm() {
 
                 <section className="form-section-container">
                     <h1>START A NEW GROUP!</h1>
-                    <h2>We'll walk you through a few steps to build your local community</h2>
+                    <h2>We&apos;ll walk you through a few steps to build your local community</h2>
                 </section>
 
                 <section className="form-section-container">
-                    <h2>First, set your group's location.</h2>
-                    <p className="form-texts">Meetup groups meet locally, in person and online. We'll connect you with people in your area, and more can join you online.</p>
+                    <h2>First, set your group&apos;s location.</h2>
+                    <p className="form-texts">Meetup groups meet locally, in person and online. We&apos;ll connect you with people in your area, and more can join you online.</p>
                     <input
                         className="form-input"
                         type="text"
@@ -80,7 +80,7 @@ function CreateGroupForm() {
                 </section>
 
                 <section className="form-section-container">
-                    <h2>What will your group's name be?</h2>
+                    <h2>What will your group&apos;s name be?</h2>
                     <p className="form-texts">Choose a name that will give people a clear idea of what the group is about.</p>
                     <p className="form-texts">Feel free to get creative! You can edit this later if you change your mind.</p>
                     <input
@@ -97,9 +97,9 @@ function CreateGroupForm() {
 
                 <section className="form-section-container">
                     <h2>Describe what your group will be about</h2>
-                    <p className="form-texts">People will see this when we promote your group, but you'll be able to add to it later, too.</p>
+                    <p className="form-texts">People will see this when we promote your group, but you&apos;ll be able to add to it later, too.</p>
                     <ol>
-                        <li className="form-texts">What's the purpose of the group?</li>
+                        <li className="form-texts">What&apos;s the purpose of the group?</li>
                         <li className="form-texts">Who should join?</li>
                         <li className="form-texts">What will you do at your events</li>
                     </ol>
