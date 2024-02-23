@@ -26,7 +26,6 @@ function DeleteGroupModal({groupId}) {
             <button className='yes-button' onClick={deleteGroup}>YES (Delete Group)</button>
             <button className='no-button' onClick={keepGroup}>NO (Keep Group)</button>
         </>
-
     )
 }
 
