@@ -8,7 +8,7 @@ export const LOAD_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_ALL_EVENTS = '/events/LOAD_EVENTS'
 export const LOAD_EVENT_DETAILS = '/events/LOAD_EVENT_DETAILS'
 export const LOAD_GROUP_DETAILS = '/events/LOAD_GROUP_DETAILS'
-export const CREATE_EVENT = '/events/CREATE_EVENT'
+export const CREATE_EVENT = '/events/:groupId/events'
 export const DELETE_EVENT = '/events/DELETE_EVENT'
 
 /**  Action Creators: */

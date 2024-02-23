@@ -40,27 +40,85 @@ function CreateEventForm() {
         if (name < 5 || name.length > 60) errors.name = 'Name must be between 5 to 60 characters'
         if (type !== 'Online' && type !== 'In person') errors.type = 'Type must be "Online" or "In person"';
         if (price < 0) errors.price = 'Price is invalid'
-        const currentDate = new Date()
-        const inputStartDate = new Date(startDate)
-        const inputEndDate = new Date(endDate)
-        if (!inputStartDate) {
-            errors.startDate = 'Invalid start date'
+        //check input date
+        const startDateError = validateDateTime(startDate);
+        if (startDateError) {
+            errors.startDate = startDateError;
         }
-        if (inputStartDate <= currentDate) {
-            errors.startDate = 'Start date must be in the future. Example: 2080-01-01 08:00:00'
-        }
-        if (!inputEndDate) {
-            errors.startDate = 'Invalid start date'
-        }
-        if (inputEndDate <= currentDate) {
-            errors.endDate = 'End date must be in the future.  Example: 2080-01-01 20:00:00'
-        }
+        const endDateError = validateDateTime(endDate);
+        if (endDateError) {
+            errors.endDate = endDateError;
+        }    
+        // try {
+        //     const startDateTimeArr = [...startDate.split(' ')[0].split('-'), ...startDate.split(' ')[1].split(':')]
+        //     if (startDateTimeArr.length !== 6) {
+        //         errors.startDate = 'Please enter the start date in such format: 2080-01-01 08:00:00'
+        //     }
+        // } catch {
+        //     errors.startDate = 'Please enter the start date in such format: 2080-01-01 08:00:00'
+        // }
+        // try {
+        //     const endDateTimeArr = [...endDate.split(' ')[0].split('-'), ...endDate.split(' ')[1].split(':')]
+        //     if (endDateTimeArr.length !== 6) {
+        //         errors.endDate = 'Please enter the end date in such format: 2080-01-01 09:00:00'
+        //     }
+        // } catch {
+        //     errors.endDate = 'Please enter the start date in such format: 2080-01-01 09:00:00'
+        // }
+        // const currentDate = new Date()
+        // const inputStartDate = new Date(startDate)
+        // const inputEndDate = new Date(endDate)
+        // if (!inputStartDate) {
+        //     errors.startDate = 'Invalid start date'
+        // }
+        // if (inputStartDate <= currentDate) {
+        //     errors.startDate = 'Start date must be in the future.'
+        // }
+        // if (!inputEndDate) {
+        //     errors.startDate = 'Invalid start date'
+        // }
+        // if (inputEndDate <= currentDate) {
+        //     errors.endDate = 'End date must be in the future.'
+        // }
+
         if (!description) errors.description = 'Description is required'
         if (description.length < 30) errors.description = 'Description needs 30 or more characters'
         if (capacity <= 0) errors.capacity = 'Capacity must be an integer and greater than 0'
 
         setErrors(errors)
     }, [name, type, price, startDate, endDate, description, capacity])
+
+    //date time validation
+    const validateDateTime = (dateTimeString) => {
+        const dateTimeParts = dateTimeString.split(' ');
+        if (dateTimeParts.length !== 2) {
+            return 'Please enter both date and time';
+        }
+    
+        const [datePart, timePart] = dateTimeParts;
+        const [year, month, day] = datePart.split('-');
+        const [hour, minute, second] = timePart.split(':');
+    
+        if (year.length !== 4 || month.length !== 2 || day.length !== 2) {
+            return 'Date must be in the format: YYYY-MM-DD';
+        }
+    
+        if (hour.length !== 2 || minute.length !== 2 || second.length !== 2) {
+            return 'Time must be in the format: HH:MM:SS';
+        }
+    
+        const inputDate = new Date(dateTimeString);
+        const currentDate = new Date();
+        if (isNaN(inputDate.getTime())) {
+            return 'Invalid date or time';
+        }
+    
+        if (inputDate <= currentDate) {
+            return 'Date and time must be in the future';
+        }
+    
+        return null; // No errors
+    };
 
     if (!group) {
         return <h2><FaPersonRunning /> Loading...</h2>;
