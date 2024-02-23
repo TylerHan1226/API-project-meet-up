@@ -29,7 +29,7 @@ function GroupDetails() {
         if (!events) {
             dispatch(fetchEventsByGroupThunk(groupId))
         }
-    }, [dispatch, groupId])
+    }, [dispatch, groupId, events])
 
     let previewImgUrl = ''
     let isPublic = 'Public'
