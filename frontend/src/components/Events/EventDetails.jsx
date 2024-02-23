@@ -28,7 +28,18 @@ function EventDetails() {
     }, [dispatch, eventId])
 
 
-
+    //delete button
+    let showDeleteModal = false
+    const { setModalContent, setOnModalClose } = useModal()
+    const openDeleteMenu = () => {
+        if (showDeleteModal) setOnModalClose(showDeleteModal)
+        setModalContent(<DeleteEventModal eventId={event.id} />)
+    }
+    if (!event || !group || !eventId) {
+        return (
+            <h2><FaPersonRunning /> loading ...</h2>
+        )
+    }
     //organizer name
     // const groupDetail = group[eventId]
     const groupDetail = group[eventId];
@@ -63,19 +74,7 @@ function EventDetails() {
         isCreator = true
     }
 
-    //delete button
-    let showDeleteModal = false
-    const { setModalContent, setOnModalClose } = useModal()
-    const openDeleteMenu = () => {
-        if (showDeleteModal) setOnModalClose(showDeleteModal)
-        setModalContent(<DeleteEventModal eventId={event.id} />)
-    }
 
-    if (!event || !group || !eventId) {
-        return (
-            <h2><FaPersonRunning /> loading ...</h2>
-        )
-    }
 
     //callbacks
     const featureAlert = () => {
