@@ -8,6 +8,7 @@ import DeleteGroupModal from "./DeleteGroupModal";
 import { IoChevronBack } from "react-icons/io5";
 import { FaPersonRunning } from "react-icons/fa6";
 import EventsList from '../Events/EventsList'
+import { fetchEventsByGroupThunk } from "../../store/events";
 
 function GroupDetails() {
 
@@ -16,20 +17,29 @@ function GroupDetails() {
     const navigate = useNavigate()
     const group = useSelector(state => state.groups.Group);
 
-    let events = []
-    events = useSelector(state => state.events.events.Events)
+
+    const events = useSelector(state => state.events.events.Events)
     const currentUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(fetchGroupDetailThunk(groupId))
     }, [dispatch, groupId])
 
+    useEffect(() => {
+        if (!events) {
+            dispatch(fetchEventsByGroupThunk(groupId))
+        }
+    }, [dispatch, groupId])
+
     let previewImgUrl = ''
     let isPublic = 'Public'
     let displayJoinButton = true
     let displayActionButtons = false
-    if (group && events) {
-        previewImgUrl = group.GroupImages.filter((image) => image.preview === true)[0].url
+    let showDeleteModal = false
+    if (groupId && group && events) {
+        if (group.GroupImages.length !== 0) {
+            previewImgUrl = group.GroupImages.filter((image) => image.preview === true)[0].url
+        }
         if (group.private == true) {
             isPublic = 'Private'
         }
@@ -46,7 +56,6 @@ function GroupDetails() {
         }
     }
 
-    let showDeleteModal = false
     const { setModalContent, setOnModalClose } = useModal();
     const openDeleteMenu = () => {
         if (showDeleteModal) setOnModalClose(showDeleteModal)
@@ -73,7 +82,7 @@ function GroupDetails() {
                     <NavLink className='back-button' to={`/groups`}><IoChevronBack /> groups</NavLink>
 
                     <div className="img-detail-container">
-                        <img className='preview-img' src={previewImgUrl} alt='group preview img' />
+                        {previewImgUrl ? <img className='preview-img' src={previewImgUrl} alt='group preview img' /> : <div>* new img feature coming soon!</div>}
                         <div className="group-details">
                             <h2>{group.name}</h2>
                             <p>{group.city}, {group.state}</p>
@@ -97,21 +106,13 @@ function GroupDetails() {
                                 <h3 className='detail-title'>What we are about</h3>
                                 <h5 className='detail-text'>{group.about}</h5>
                             </div>
-                            <div className='detail-section'>
-                                {events && <h3>Events ({events.length})</h3>}
+                            {events && <div className='detail-section'>
+                                <h3>Events ({events.length})</h3>
                                 <EventsList groupId={groupId} />
-                            </div>
+                            </div>}
                         </div>
                     </section>
-                    {/* <div>
-                        {true &&
-                            <OpenModalMenuItem
-                                itemText="Delete Group"
-                                onItemClick={closeMenu}
-                                modalComponent={<DeleteGroupModal />}
-                            />}
-                        {showMenu && <DeleteGroupModal />}
-                    </div> */}
+
                 </section>
             ) : (
                 <h2><FaPersonRunning /> loading ...</h2> // Render a message if no images

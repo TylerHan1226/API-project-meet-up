@@ -70,9 +70,12 @@ function EventDetails() {
     console.log('currentUser ==>', currentUser)
     //show button?
     let isCreator = false
-    if (groupDetail && currentUser.id == groupDetail.Organizer.id) {
-        isCreator = true
-    }
+    if (currentUser) {
+        if (groupDetail && currentUser.id == groupDetail.Organizer.id) {
+            isCreator = true
+        }
+    } 
+
 
 
 
