@@ -51,7 +51,7 @@
 }
 
 #event-basic-info-container {
-    border: 2px blue solid;
+    /* border: 2px blue solid; */
     border-radius: 10px;
     padding: 12px;
     margin: 16px 0 auto 0;
