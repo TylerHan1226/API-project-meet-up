@@ -42,4 +42,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .start-new-group-link {
   text-decoration: none;
+  font-size: 20px;
+}
+
+.header-start-new-group-link {
+  font-family: Helvetica, Arial, sans-serif;
 }

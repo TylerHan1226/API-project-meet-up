@@ -49,19 +49,22 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li className='profile-details'>Hello, {user.firstName}</li>
-            <li className='profile-details'>{user.email}</li>
-            <li className='profile-details'>
-              <Link to='/groups'>View groups</Link>
-            </li>
-            <li className='profile-details'>
-              <Link to='/events'>View events</Link>
-            </li>
-            <li className='profile-details'>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
+          <div className='popup-form-container'>
+            <div className='popup-user-form'>
+              <li className='profile-details'>Hello, {user.firstName}</li>
+              <li className='profile-details'>{user.email}</li>
+              <li className='profile-details'>
+                <Link to='/groups'>View groups</Link>
+              </li>
+              <li className='profile-details'>
+                <Link to='/events'>View events</Link>
+              </li>
+              <li className='profile-details'>
+                <button className='user-red-button' onClick={logout}>Log Out</button>
+              </li>
+            </div>
+
+          </div>
         ) : (
           <>
             <OpenModalMenuItem

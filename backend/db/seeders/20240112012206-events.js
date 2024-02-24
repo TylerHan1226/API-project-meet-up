@@ -63,7 +63,7 @@ module.exports = {
         description: 'Ball, compete, win $100, forge bonds!',
         type: 'In person',
         capacity: 32,
-        price: 5,
+        price: 0,
         startDate: '2024-10-01 20:00:00',
         endDate: '2024-10-01 22:00:00'
       },

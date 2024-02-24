@@ -1,18 +1,21 @@
 
 
-#popup-form-container {
-    padding: 8px;
+.popup-form-container {
+    padding: 16px;
+    background-color: rgba(0, 11, 163, 0.1);
 }
 
 .popup-form-title {
     margin: 4px 4px 4px 4px;
 }
 
-.popup-sign-up-form {
+.popup-user-form {
     display: flex;
     flex-direction: column;
 }
 
 .label {
     margin: 4px 4px 4px 4px;
+    display: flex;
+    flex-direction: column;
 }

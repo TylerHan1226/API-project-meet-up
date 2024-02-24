@@ -99,6 +99,10 @@
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
     padding: 8px;
+    cursor: pointer;
+}
+.join-group-button:hover {
+    background-color: rgba(139, 0, 0, 0.8);
 }
 
 .action-buttons-container {

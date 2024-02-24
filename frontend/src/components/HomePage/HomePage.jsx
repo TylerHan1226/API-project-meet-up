@@ -8,6 +8,7 @@ import { MdGroups2 } from "react-icons/md";
 import { MdEventAvailable } from "react-icons/md";
 import { GiBarracksTent } from "react-icons/gi";
 import SignupFormModal from '../SignupFormModal';
+import { useSelector } from 'react-redux';
 
 function HomePage() {
 
@@ -16,6 +17,11 @@ function HomePage() {
     const onClick = () => {
         if (showSignupModal) setOnModalClose(showSignupModal)
         setModalContent(<SignupFormModal />)
+    }
+    const user = useSelector(state => state.session.user)
+    let buttonActive = false
+    if (user) {
+        buttonActive = true
     }
 
     return (
@@ -35,15 +41,16 @@ function HomePage() {
                     <div className='homepage-actions'>
                         <GiBarracksTent className='homepage-action-icons' />
                         {/* <h4>See all groups</h4> change to NavLinks */}
-                        <NavLink to='/groups'>See all groups</NavLink>
+                        <NavLink className='homepage-action-links' to='/groups'>See all groups</NavLink>
                     </div>
                     <div className='homepage-actions'>
                         <MdEventAvailable className='homepage-action-icons' />
-                        <NavLink to='/events'>Find an event</NavLink>
+                        <NavLink className='homepage-action-links' to='/events'>Find an event</NavLink>
                     </div>
                     <div className='homepage-actions'>
                         <MdGroups2 className='homepage-action-icons' />
-                        <NavLink to='/groups/create'>Start a new group!</NavLink>
+                        {buttonActive ? <NavLink className='homepage-action-links' to='/groups/create'>Start a new group!</NavLink>
+                        : <NavLink className='homepage-action-links no-pointer'>Start a new group!</NavLink>}
                     </div>
                 </div>
             </div>

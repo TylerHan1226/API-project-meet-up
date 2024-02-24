@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 12px 24px 12px 24px
+    margin: 24px 10% 12px 10%
 }
 
 #homepage-description {
@@ -30,20 +30,47 @@
 #homepage-links {
     display: flex;
     flex-direction: row;
+    gap: 12px;
+    width: 60%
 }
 
 .homepage-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 48px;
+    padding: 12px;
+    width: 33%;
 }
 
 .homepage-action-icons {
-    font-size: 68px;
+    font-size: 80px;
 }
 
 #join-meetup-button {
     width: 10%;
     align-self: center;
+}
+
+.homepage-action-links {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px;
+    margin-top: 8px;
+    color: rgb(88, 88, 188);
+}
+
+.no-pointer {
+    cursor: default;
+    color: grey;
+}
+
+#join-meetup-button {
+    background-color: rgba(255, 0, 0, 0.8);
+    border: none;
+    color: white;
+    padding: 12px 12px;
+    margin-top: 52px;
+    cursor: pointer;
+    width: 10%;
 }

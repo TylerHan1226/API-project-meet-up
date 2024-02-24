@@ -51,9 +51,9 @@ function SignupFormModal() {
   };
 
   return (
-    <div id='popup-form-container'>
+    <div className='popup-form-container'>
       <h1 className='popup-form-title'>Sign Up</h1>
-      <form className='popup-sign-up-form' onSubmit={handleSubmit}>
+      <form className='popup-user-form' onSubmit={handleSubmit}>
         <label className='label'>
           Email 
           <input
@@ -114,7 +114,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p className='error-message'>* {errors.confirmPassword}</p>}
-        <button type="submit" disabled={!buttonActive}>Sign Up</button>
+        <button className='user-red-button' type="submit" disabled={!buttonActive}>Sign Up</button>
       </form>
     </div>
   );

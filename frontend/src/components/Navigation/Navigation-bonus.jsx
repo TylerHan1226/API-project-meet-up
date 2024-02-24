@@ -25,7 +25,7 @@ function Navigation({ isLoaded }) {
 
       <div id="start-new-group">
         {isLoaded && displayStartNewGroup && (
-          <NavLink className="start-new-group-link" to='/groups/create'>Start a new group!</NavLink>
+          <NavLink className="start-new-group-link header-start-new-group-link" to='/groups/create'>Start a new group!</NavLink>
         )}
       </div>
 

@@ -39,11 +39,11 @@ function LoginFormModal() {
 
 
   return (
-    <>
+    <div className='popup-form-container'>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+      <form className='popup-user-form' onSubmit={handleSubmit}>
+        <label className='label'>
+        Username or Email
           <input
             type="text"
             value={credential}
@@ -51,7 +51,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
+        <label className='label'>
           Password
           <input
             type="password"
@@ -61,10 +61,10 @@ function LoginFormModal() {
           />
         </label>
         {errors.message && <p className='error-message'>* {errors.message}</p>}
-        <button type="submit" disabled={!buttonActive}>Log In</button>
-        <button type="submit" onClick={handleDemoLogin}>Log in as Demo User</button>
+        <button className='user-red-button' type="submit" disabled={!buttonActive}>Log In</button>
+        <button className='demo-user-button' type="submit" onClick={handleDemoLogin}>Log in as Demo User</button>
       </form>
-    </>
+    </div>
   );
 }
 

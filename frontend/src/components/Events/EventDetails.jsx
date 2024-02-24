@@ -74,10 +74,11 @@ function EventDetails() {
         if (groupDetail && currentUser.id == groupDetail.Organizer.id) {
             isCreator = true
         }
-    } 
-
-
-
+    }
+    let isFree = false
+    if (event.price == 0) {
+        isFree = true
+    }
 
     //callbacks
     const featureAlert = () => {
@@ -109,6 +110,7 @@ function EventDetails() {
                                             <p>{isPublic}</p>
                                         </div>
                                     </div>
+
                                     <div id='event-basic-info-container'>
                                         <div className="event-detail-icons">
                                             <WiTime4 className="event-detail-icon" />
@@ -118,10 +120,12 @@ function EventDetails() {
                                         <div className="event-detail-texts">
                                             <p className="event-box-texts">Start {eventStartDate} · {eventStartTime}</p>
                                             <p className="event-box-texts">End {eventEndDate} · {eventEndTime}</p>
-                                            <p className="event-box-texts">{event.price} $</p>
+                                            {!isFree ? <p className="event-box-texts">{event.price} $</p>
+                                            : <p className="event-box-texts">FREE</p>}
                                             <p className="event-box-texts">{event.type}</p>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
 
