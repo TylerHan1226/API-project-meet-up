@@ -2,26 +2,26 @@
     color: rgba(255, 0, 0, 0.8);
 }
 
-.user-red-button {
+/* .user-red-button {
     background-color: rgba(255, 0, 0, 0.8);
     border: none;
     color: white;
     padding: 8px 16px;
     margin-top: 16px;
     cursor: pointer;
-}
-.user-red-button:hover {
+} */
+/* .user-red-button:hover {
     background-color: rgba(139, 0, 0, 0.8);
-}
+} */
 
-.demo-user-button {
+/* .demo-user-button {
     background-color: rgba(255, 0, 0, 0.8);
     border: none;
     color: white;
     padding: 8px 16px;
     margin-top: 12px;
     cursor: pointer;
-}
-.demo-user-button:hover {
+} */
+/* .demo-user-button:hover {
     background-color: rgba(139, 0, 0, 0.8);
-}
+} */

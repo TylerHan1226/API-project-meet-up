@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useParams, useNavigate } from "react-router-dom"
 import './GroupForm.css'
 import { updateGroupThunk, fetchGroupDetailThunk } from "../../store/groups"
+import { FaPersonRunning } from "react-icons/fa6";
 
 function UpdateGroup() {
     const navigate = useNavigate()
@@ -52,7 +53,7 @@ function UpdateGroup() {
     }, [dispatch, name, about, type, IsPrivate, location, navigate, user])
 
     if (!group) {
-        return <div>Loading...</div>
+        return <h2><FaPersonRunning /> Loading... (group cannot be found)</h2>
     }
     if (user) {
         if (user.id !== group.organizerId) {

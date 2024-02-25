@@ -51,8 +51,8 @@ function CreateEventForm() {
         if (endDateError) {
             errors.endDate = endDateError;
         }
-        if (endDate >= startDate) {
-            errors.endDate = 'End date but be later than the start date'
+        if (endDate <= startDate) {
+            errors.endDate = 'End date must be later than the start date'
         }
 
         if (!description) errors.description = 'Description is required'
@@ -70,36 +70,51 @@ function CreateEventForm() {
     //date time validation
     const validateDateTime = (dateTimeString) => {
         const dateTimeParts = dateTimeString.split(' ')
-        if (dateTimeParts.length !== 2) {
-            return 'Please enter both date and time'
+        
+        if (Array.isArray(dateTimeParts)) {
+            console.log('dateTimeParts ==>',dateTimeParts)
+            if (dateTimeParts.length !== 2) {
+                return 'Please enter both date and time'
+            }
+            const [datePart, timePart] = dateTimeParts
+            const dateArr = datePart.split('-')
+            const [year, month, day] = dateArr
+            const timeArr = timePart.split(':')
+            const [hour, minute, second] = timeArr
+            console.log('hour ==>',hour)
+            if (dateArr.length === 3 && timeArr.length === 3) {
+                if (year.length !== 4 || month.length !== 2 || day.length !== 2) {
+                    return 'Date must be in the format: YYYY-MM-DD'
+                }
+                if (hour.length !== 2 || minute.length !== 2 || second.length !== 2) {
+                    return 'Time must be in the format: HH:MM:SS'
+                }
+                if (hour == 24 || minute == 60 || second == 60) {
+                    return 'Please enter valid time'
+                }
+            } 
+            else {
+                return 'Please enter both date and time. Date must be in the format: YYYY-MM-DD. Time must be in the format: HH:MM:SS'
+            }
+
+            const inputDate = new Date(dateTimeString)
+            const currentDate = new Date()
+            if (isNaN(inputDate.getTime())) {
+                return 'Invalid date or time'
+            }
+            if (inputDate <= currentDate) {
+                return 'Date and time must be in the future';
+            }
         }
-        const [datePart, timePart] = dateTimeParts
-        const [year, month, day] = datePart.split('-')
-        const [hour, minute, second] = timePart.split(':')
-        if (year.length !== 4 || month.length !== 2 || day.length !== 2) {
-            return 'Date must be in the format: YYYY-MM-DD'
-        }
-        if (hour.length !== 2 || minute.length !== 2 || second.length !== 2) {
-            return 'Time must be in the format: HH:MM:SS'
-        }
-        const inputDate = new Date(dateTimeString)
-        const currentDate = new Date()
-        if (isNaN(inputDate.getTime())) {
-            return 'Invalid date or time'
-        }
-        if (inputDate <= currentDate) {
-            return 'Date and time must be in the future';
-        }
+
         return null;
     };
 
     if (!group) {
-        return <h2><FaPersonRunning /> Loading...</h2>
+        return <h2><FaPersonRunning /> Loading... (group cannot be found)</h2>
     }
     //validate user
     if (user && group) {
-        console.log('user ==>', user)
-        console.log('group ==>', group)
         if (user.id !== group.organizerId) {
             navigate('/')
         }
