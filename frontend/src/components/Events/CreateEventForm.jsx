@@ -42,6 +42,7 @@ function CreateEventForm() {
         if (name < 5 || name.length > 60) errors.name = 'Name must be between 5 to 60 characters'
         if (type !== 'Online' && type !== 'In person') errors.type = 'Type must be "Online" or "In person"';
         if (price < 0) errors.price = 'Price is invalid'
+        if (!price) errors.price = 'Please enter price'
         //check input date
         const startDateError = validateDateTime(startDate);
         if (startDateError) {
@@ -72,7 +73,7 @@ function CreateEventForm() {
         const dateTimeParts = dateTimeString.split(' ')
         
         if (Array.isArray(dateTimeParts)) {
-            console.log('dateTimeParts ==>',dateTimeParts)
+            // console.log('dateTimeParts ==>',dateTimeParts)
             if (dateTimeParts.length !== 2) {
                 return 'Please enter both date and time'
             }
@@ -81,7 +82,7 @@ function CreateEventForm() {
             const [year, month, day] = dateArr
             const timeArr = timePart.split(':')
             const [hour, minute, second] = timeArr
-            console.log('hour ==>',hour)
+            // console.log('hour ==>',hour)
             if (dateArr.length === 3 && timeArr.length === 3) {
                 if (year.length !== 4 || month.length !== 2 || day.length !== 2) {
                     return 'Date must be in the format: YYYY-MM-DD'
