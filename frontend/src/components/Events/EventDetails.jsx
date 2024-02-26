@@ -6,7 +6,7 @@ import { useModal } from "../../context/Modal";
 import { IoChevronBack } from "react-icons/io5";
 import { FaPersonRunning } from "react-icons/fa6";
 import { WiTime4 } from "react-icons/wi";
-import { TbPigMoney } from "react-icons/tb";
+import { PiMoneyFill } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 
 
@@ -58,7 +58,7 @@ function EventDetails() {
     //get group img
     const groupImgUrlArr = groupDetail && groupDetail.GroupImages ? groupDetail.GroupImages : [];
     const groupImgUrl = groupImgUrlArr.length > 0 ? groupImgUrlArr.filter((img) => img.preview === true)[0].url : '';
-    
+
     //event start/end date
     const eventStartDate = event.startDate.split(' ')[0]
     const eventStartTime = event.startDate.split(' ')[1]
@@ -112,20 +112,28 @@ function EventDetails() {
                                     </div>
 
                                     <div id='event-basic-info-container'>
+
                                         <div className="event-detail-icons">
                                             <WiTime4 className="event-detail-icon" />
-                                            <TbPigMoney className="event-detail-icon" />
+                                            <PiMoneyFill className="event-detail-icon" />
                                             <IoLocationOutline className="event-detail-icon" />
                                         </div>
-                                        <div className="event-detail-texts">
-                                            <p className="event-box-texts">Start {eventStartDate} · {eventStartTime}</p>
-                                            <p className="event-box-texts">End {eventEndDate} · {eventEndTime}</p>
-                                            {!isFree ? <p className="event-box-texts">{event.price} $</p>
-                                            : <p className="event-box-texts">FREE</p>}
-                                            <p className="event-box-texts">{event.type}</p>
+
+                                        <div className="event-box-texts-container">
+                                            <div className="event-text-item">
+                                                <p className="event-box-texts">Start {eventStartDate} · {eventStartTime}</p>
+                                                <p className="event-box-texts">End {eventEndDate} · {eventEndTime}</p>
+                                            </div>
+                                            <div className="event-text-item">
+                                                <p className="event-box-texts">{event.type}</p>
+                                            </div>
+                                            <div className="event-text-item">
+                                                {!isFree ? <p className="event-box-texts">{event.price} $</p> : <p className="event-box-texts">FREE</p>}
+                                            </div>
                                         </div>
+
                                     </div>
-                                    
+
                                 </div>
                             </div>
 
@@ -135,7 +143,7 @@ function EventDetails() {
                             </div> : (
                                 <div className="event-action-buttons-container">
                                     <button className="event-action-button" onClick={featureAlert}>Join this Event!</button>
-                                </div>                      
+                                </div>
                             )}
 
                             <div className="event-description-container">
