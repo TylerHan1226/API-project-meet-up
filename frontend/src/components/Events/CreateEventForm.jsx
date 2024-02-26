@@ -57,6 +57,7 @@ function CreateEventForm() {
         }
 
         if (!description) errors.description = 'Description is required'
+        if (!eventImgUrl) errors.eventImgUrl = 'Image URL is required'
         if (description.length < 30) errors.description = 'Description needs 30 or more characters'
         if (capacity <= 0) errors.capacity = 'Capacity must be an integer and greater than 0'
 
@@ -66,7 +67,7 @@ function CreateEventForm() {
             navigate('/')
         }
 
-    }, [name, type, price, startDate, endDate, description, capacity, navigate, user])
+    }, [name, type, price, startDate, endDate, description, capacity, navigate, user, eventImgUrl])
 
     //date time validation
     const validateDateTime = (dateTimeString) => {
@@ -253,9 +254,9 @@ function CreateEventForm() {
                         onChange={(e) => setEventImgUrl(e.target.value)}
                         placeholder="Image URL"
                     />
-                    {/* <div>
+                    <div>
                         {hasSubmitted && errors.eventImgUrl && <p className="form-errors">* {errors.eventImgUrl}</p>}
-                    </div> */}
+                    </div>
                 </section>
 
                 <section className="form-section-container">

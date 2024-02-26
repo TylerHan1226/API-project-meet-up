@@ -31,12 +31,13 @@ function CreateGroupForm() {
         if (type !== 'Online' && type !== 'In person') errors.type = 'Type must be "Online" or "In person"';
         if (!location.split(', ')[0]) errors.city = 'City is required';
         if (!location.split(', ')[1]) errors.state = 'State is required';
+        if (!groupImgUrl) errors.groupImgUrl = 'Image URL is required';
         setErrors(errors)
         //validate user
         if (!user) {
             navigate('/')
         }
-    }, [name, about, type, IsPrivate, location, navigate, user])
+    }, [name, about, type, IsPrivate, location, navigate, user, groupImgUrl])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -144,6 +145,9 @@ function CreateGroupForm() {
                         onChange={(e) => setGroupImgUrl(e.target.value)}
                         placeholder="Image URL"
                     />
+                    <div>
+                        {hasSubmitted && errors.groupImgUrl && <p className="form-errors">* {errors.groupImgUrl}</p>}
+                    </div>
 
                 </section>
 
