@@ -115,8 +115,9 @@ function EventDetails() {
 
                                         <div className="event-detail-icons">
                                             <WiTime4 className="event-detail-icon" />
-                                            <PiMoneyFill className="event-detail-icon" />
+                                            
                                             <IoLocationOutline className="event-detail-icon" />
+                                            <PiMoneyFill className="event-detail-icon" />
                                         </div>
 
                                         <div className="event-box-texts-container">
